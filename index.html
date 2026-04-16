@@ -30,7 +30,289 @@ font-family:'DM Sans',sans-serif;
 background:var(--cream);
 color:var(--charcoal);
 }
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
 
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    max-width: 420px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: white;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--charcoal);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    padding: 16px 36px;
+    border: 1px solid var(--light-gray);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 40%, var(--terracotta-pale) 0%, var(--gold-light) 50%, transparent 70%);
+    opacity: 0.6;
+    animation: pulse-slow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .sun-icon {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 32px;
+    position: relative;
+    animation: rotate-slow 20s linear infinite;
+  }
+
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 4px;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--charcoal);
+    color: var(--gold-light);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 25s linear infinite;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-sep {
+    margin: 0 32px;
+    color: var(--terracotta);
+  }
+
+  /* INTRO SECTION */
+  .intro {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    height: fit-content;
+  }
+
+  .intro-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: var(--charcoal);
+  }
+
+  .intro-content h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .intro-content p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--mid-gray);
+    font-weight: 300;
+    max-width: 600px;
+  }
+   .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+  }
+
+  .product-spf {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--terracotta);
+  }
+
+  .product-spf span {
+    font-size: 12px;
+    color: var(--mid-gray);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+
+  .product-link {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.3s;
+  }
+
+  .product-link:hover { gap: 12px; }
+ 
 /* NAVBAR */
 
 nav{
@@ -202,24 +484,53 @@ grid-template-columns:1fr 1fr;
 
 
 <section class="hero">
-
-<div>
-<h1>Your Perfect <span>SPF Morning Routine</span></h1>
-
-<p>
-Discover the dermatologist-approved sunscreen routine that protects your skin every day.
-</p>
-
-<a href="spf-morning-routine.html" class="btn">Build My Routine</a>
-
-</div>
-
-<div>
-<img src="sun.png" width="300">
-</div>
-
+  <div class="hero-left">
+    <div class="hero-tag fade-up fade-up-1">Daily Sun Protection Guide</div>
+    <h1 class="fade-up fade-up-2">
+      Your Perfect<br><em>SPF Morning</em><br>Routine
+    </h1>
+    <p class="hero-subtitle fade-up fade-up-3">
+      Stop guessing which sunscreen works for your skin. Get dermatologist-backed SPF routines tailored to your skin type — no white cast, no grease, just protected glowing skin.
+    </p>
+    <div class="hero-buttons fade-up fade-up-4">
+      <a href="#routine" class="btn-primary">Build My Routine</a>
+      <a href="#products" class="btn-secondary">Top SPF Picks</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-visual">
+      <svg class="sun-icon" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="45" fill="#C8674A" opacity="0.9"/>
+        <circle cx="100" cy="100" r="55" stroke="#C9A96E" stroke-width="1" opacity="0.4"/>
+        <circle cx="100" cy="100" r="70" stroke="#C9A96E" stroke-width="0.5" opacity="0.2"/>
+        <line x1="100" y1="10" x2="100" y2="30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="100" y1="170" x2="100" y2="190" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="10" y1="100" x2="30" y2="100" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="170" y1="100" x2="190" y2="100" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="29" y1="29" x2="43" y2="43" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="157" y1="157" x2="171" y2="171" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="171" y1="29" x2="157" y2="43" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="43" y1="157" x2="29" y2="171" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <text x="100" y="107" text-anchor="middle" fill="white" font-family="Cormorant Garamond" font-size="18" font-weight="600">SPF</text>
+      </svg>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">SPF Reviews</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Skin Types</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">No White Cast</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
 
 <section class="features">
 
@@ -591,7 +902,45 @@ setion: relative;
   </div>
 
 </div>
-
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>GlowShield</h3>
+      <p>Your trusted source for SPF routines, sunscreen reviews, and summer skincare tips tailored for every skin type.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Routines</h4>
+      <ul>
+        <li><a href="#">SPF Morning Routine</a></li>
+        <li><a href="#">Oily Skin Guide</a></li>
+        <li><a href="#">Sensitive Skin SPF</a></li>
+        <li><a href="#">Men's SPF Routine</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Reviews</h4>
+      <ul>
+        <li><a href="#">Korean Sunscreens</a></li>
+        <li><a href="#">Drugstore Picks</a></li>
+        <li><a href="#">Mineral SPF</a></li>
+        <li><a href="#">Tinted Sunscreens</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowShield. All rights reserved.</p>
+    <p>Some links are affiliate links. We earn a small commission at no cost to you.</p>
+  </div>
+</footer>
 <script>
 function handleSubmit() {
   const email = document.getElementById('emailInput').value.trim();
