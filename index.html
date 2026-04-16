@@ -3,33 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GlowShield | SPF Morning Routine</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
+<title>SPF Morning Routine — Your Daily Sun Protection Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-white: #FFFDF9;
+    --terracotta: #C8674A;
+    --terracotta-light: #E8937A;
+    --terracotta-pale: #F5E6DF;
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --forest: #3D5A47;
+    --charcoal: #2A2A2A;
+    --mid-gray: #6B6B6B;
+    --light-gray: #E8E4DF;
+  }
 
-:root{
---cream:#FAF6F0;
---warm-white:#FFFDF9;
---terracotta:#C8674A;
---gold:#C9A96E;
---charcoal:#2A2A2A;
---mid-gray:#6B6B6B;
---light-gray:#E8E4DF;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+  html { scroll-behavior: smooth; }
 
-body{
-font-family:'DM Sans',sans-serif;
-background:var(--cream);
-color:var(--charcoal);
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 246, 240, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--terracotta);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid-gray);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  .nav-cta {
+    background: var(--terracotta);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-size: 12px !important;
+    letter-spacing: 1.5px !important;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--terracotta-light) !important; color: white !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 1.5px;
+    background: var(--charcoal);
+    transition: all 0.3s;
+  }
+
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: grid;
@@ -276,7 +362,311 @@ color:var(--charcoal);
     font-weight: 300;
     max-width: 600px;
   }
-   .product-footer {
+
+  /* ROUTINE STEPS */
+  .routine {
+    padding: 100px 80px;
+    background: var(--warm-white);
+  }
+
+  .routine-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .routine-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+
+  .routine-header h2 em { font-style: italic; color: var(--terracotta); }
+
+  .routine-header p {
+    font-size: 15px;
+    color: var(--mid-gray);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--light-gray);
+  }
+
+  .step-card {
+    background: var(--warm-white);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--terracotta);
+    transition: width 0.4s ease;
+  }
+
+  .step-card:hover::before { width: 100%; }
+  .step-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(200, 103, 74, 0.1); }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--terracotta-pale);
+    line-height: 1;
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    transition: color 0.4s;
+  }
+
+  .step-card:hover .step-num { color: rgba(200, 103, 74, 0.15); }
+
+  .step-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    font-weight: 300;
+  }
+
+  .step-tip {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: var(--terracotta-pale);
+    border-left: 2px solid var(--terracotta);
+    font-size: 12px;
+    color: var(--terracotta);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  /* SKIN TYPES */
+  .skin-types {
+    padding: 100px 80px;
+    background: var(--charcoal);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skin-types::before {
+    content: 'SPF';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 300px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.02);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .skin-types-header {
+    margin-bottom: 64px;
+  }
+
+  .skin-types-header .section-label { color: var(--gold); }
+
+  .skin-types-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+    margin-top: 16px;
+  }
+
+  .skin-types-header h2 em { font-style: italic; color: var(--terracotta-light); }
+
+  .skin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .skin-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .skin-card:hover {
+    border-color: var(--terracotta-light);
+    background: rgba(200, 103, 74, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .skin-type-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .skin-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 3px 10px;
+    margin-bottom: 20px;
+    border-radius: 1px;
+  }
+
+  .skin-rec {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+  }
+
+  .skin-rec strong {
+    color: var(--terracotta-light);
+    font-weight: 500;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 100px 80px;
+    background: var(--cream);
+  }
+
+  .products-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .products-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+  }
+
+  .products-header h2 em { font-style: italic; color: var(--terracotta); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .product-card {
+    background: var(--warm-white);
+    border: 1px solid var(--light-gray);
+    overflow: hidden;
+    transition: all 0.4s;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.08);
+    border-color: var(--gold-light);
+  }
+
+  .product-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img-1 { background: linear-gradient(135deg, #F5E6DF, #FFCBA4); }
+  .product-img-2 { background: linear-gradient(135deg, #E8E4F5, #D4C9F0); }
+  .product-img-3 { background: linear-gradient(135deg, #E4F0E8, #C9E8D4); }
+
+  .product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--terracotta);
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 1px;
+  }
+
+  .product-info {
+    padding: 28px;
+  }
+
+  .product-category {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: var(--mid-gray);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .product-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -312,177 +702,303 @@ color:var(--charcoal);
   }
 
   .product-link:hover { gap: 12px; }
- 
-/* NAVBAR */
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:var(--warm-white);
-border-bottom:1px solid var(--light-gray);
-}
+  /* FAQ */
+  .faq {
+    padding: 100px 80px;
+    background: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
 
-.logo{
-font-family:'Cormorant Garamond',serif;
-font-size:24px;
-color:var(--terracotta);
-}
+  .faq-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--charcoal);
+    position: sticky;
+    top: 120px;
+  }
 
-nav ul{
-display:flex;
-gap:30px;
-list-style:none;
-}
+  .faq-left h2 em { font-style: italic; color: var(--terracotta); }
 
-nav a{
-text-decoration:none;
-font-size:14px;
-color:var(--mid-gray);
-}
+  .faq-item {
+    border-bottom: 1px solid var(--light-gray);
+    padding: 32px 0;
+    cursor: pointer;
+  }
 
-nav a:hover{
-color:var(--terracotta);
-}
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
 
-/* HERO */
+  .faq-q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.3;
+  }
 
-.hero{
-display:grid;
-grid-template-columns:1fr 1fr;
-align-items:center;
-padding:80px 40px;
-}
+  .faq-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--terracotta);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
 
-.hero h1{
-font-family:'Cormorant Garamond',serif;
-font-size:60px;
-line-height:1.1;
-}
+  .faq-item.open .faq-icon {
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+    transform: rotate(45deg);
+  }
 
-.hero span{
-color:var(--terracotta);
-}
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    font-weight: 300;
+  }
 
-.hero p{
-margin:20px 0;
-color:var(--mid-gray);
-max-width:400px;
-}
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-top: 16px;
+  }
 
-.btn{
-display:inline-block;
-padding:14px 30px;
-background:var(--terracotta);
-color:white;
-text-decoration:none;
-font-size:13px;
-letter-spacing:1px;
-margin-top:10px;
-}
+  /* CTA BANNER */
+  .cta-banner {
+    padding: 100px 80px;
+    background: linear-gradient(135deg, var(--terracotta) 0%, #A0503A 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-/* FEATURES */
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
 
-.features{
-padding:80px 40px;
-background:var(--warm-white);
-}
+  .cta-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
 
-.features-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:30px;
-}
+  .cta-banner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
 
-.feature{
-padding:30px;
-border:1px solid var(--light-gray);
-background:white;
-}
+  .cta-banner h2 em { font-style: italic; }
 
-.feature h3{
-font-family:'Cormorant Garamond',serif;
-margin-bottom:10px;
-}
+  .cta-banner p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+  }
 
-.feature p{
-font-size:14px;
-color:var(--mid-gray);
-}
+  .btn-white {
+    background: white;
+    color: var(--terracotta);
+    padding: 18px 48px;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
 
-/* ROUTINE PREVIEW */
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  }
 
-.routine{
-padding:80px 40px;
-text-align:center;
-}
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.6);
+    padding: 60px 80px 40px;
+  }
 
-.routine h2{
-font-family:'Cormorant Garamond',serif;
-font-size:40px;
-margin-bottom:30px;
-}
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
 
-.steps{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:20px;
-}
+  .footer-brand h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--terracotta-light);
+    margin-bottom: 16px;
+  }
 
-.step{
-padding:20px;
-border:1px solid var(--light-gray);
-background:white;
-font-size:14px;
-}
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 280px;
+  }
 
-/* FOOTER */
+  .footer-col h4 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
 
-footer{
-background:var(--charcoal);
-color:white;
-padding:40px;
-text-align:center;
-margin-top:60px;
-}
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.3s;
+  }
 
-/* RESPONSIVE */
+  .footer-col a:hover { color: var(--terracotta-light); }
 
-@media(max-width:900px){
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
-.hero{
-grid-template-columns:1fr;
-gap:40px;
-}
+  .footer-bottom p { font-size: 13px; font-weight: 300; }
 
-.features-grid{
-grid-template-columns:1fr;
-}
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-.steps{
-grid-template-columns:1fr 1fr;
-}
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
 
-}
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.2s; }
+  .fade-up-3 { animation-delay: 0.3s; }
+  .fade-up-4 { animation-delay: 0.4s; }
 
+  /* MOBILE */
+  @media (max-width: 1024px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { padding: 40px 24px 60px; min-height: 300px; }
+    .hero-bg-circle { width: 300px; height: 300px; }
+    .sun-icon { width: 120px; height: 120px; }
+
+    .intro { grid-template-columns: 1fr; padding: 60px 24px; gap: 24px; }
+    .section-label { writing-mode: horizontal-tb; transform: none; }
+
+    .routine { padding: 60px 24px; }
+    .steps-grid { grid-template-columns: 1fr; gap: 2px; }
+
+    .skin-types { padding: 60px 24px; }
+    .skin-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .products { padding: 60px 24px; }
+    .products-grid { grid-template-columns: 1fr; gap: 24px; }
+
+    .faq { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    .faq-left h2 { position: static; }
+
+    .cta-banner { padding: 60px 24px; }
+
+    footer { padding: 60px 24px 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 42px; }
+    .hero-stats { gap: 24px; }
+    .skin-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .products-header { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
-<div class="logo">GlowShield</div>
-
-<ul>
-<li><a href="routine.html">Routine</a></li>
-<li><a href="products.html">Products</a></li>
-<li><a href="guides.html">Guides</a></li>
-<li><a href="faq.html">FAQ</a></li>
-</ul>
+  <div class="nav-logo">Glow<span>Shield</span></div>
+  <ul class="nav-links">
+    <li><a href="#routine">Routine</a></li>
+    <li><a href="#skin-types">Skin Types</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#products" class="nav-cta">Shop SPF</a></li>
+  </ul>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
-
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag fade-up fade-up-1">Daily Sun Protection Guide</div>
@@ -532,376 +1048,217 @@ grid-template-columns:1fr 1fr;
   </div>
 </section>
 
-<section class="features">
-
-<div class="features-grid">
-
-<div class="feature">
-<h3>SPF Routine</h3>
-<p>Learn the perfect step-by-step sunscreen routine for healthy skin.</p>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    SPF 50 Daily Routine <span class="ticker-sep">✦</span> No White Cast Sunscreen <span class="ticker-sep">✦</span> Oily Skin SPF Guide <span class="ticker-sep">✦</span> Sweat Proof Summer Makeup <span class="ticker-sep">✦</span> Mineral vs Chemical SPF <span class="ticker-sep">✦</span> Korean Sunscreen Reviews <span class="ticker-sep">✦</span> Sunscreen Under Foundation <span class="ticker-sep">✦</span> SPF Morning Routine 2025 <span class="ticker-sep">✦</span>
+    SPF 50 Daily Routine <span class="ticker-sep">✦</span> No White Cast Sunscreen <span class="ticker-sep">✦</span> Oily Skin SPF Guide <span class="ticker-sep">✦</span> Sweat Proof Summer Makeup <span class="ticker-sep">✦</span> Mineral vs Chemical SPF <span class="ticker-sep">✦</span> Korean Sunscreen Reviews <span class="ticker-sep">✦</span> Sunscreen Under Foundation <span class="ticker-sep">✦</span> SPF Morning Routine 2025 <span class="ticker-sep">✦</span>
+  </div>
 </div>
 
-<div class="feature">
-<h3>Skin Type Guide</h3>
-<p>Find the best sunscreen for oily, dry, or sensitive skin.</p>
-</div>
-
-<div class="feature">
-<h3>Top SPF Picks</h3>
-<p>Explore dermatologist recommended sunscreens.</p>
-</div>
-
-</div>
-
+<!-- INTRO -->
+<section class="intro" id="about">
+  <div class="section-label">About</div>
+  <div class="intro-content">
+    <h2>Why Your Morning Routine<br>Needs <em>SPF Every Single Day</em></h2>
+    <p>
+      UV rays don't take days off — and neither should your sunscreen. Whether it's cloudy, sunny, or you're just sitting by a window, your skin is exposed to aging and damaging UVA and UVB rays. A proper SPF morning routine is the single most effective anti-aging step dermatologists recommend. We cut through the confusion and help you find the perfect formula for your skin type, lifestyle, and budget.
+    </p>
+  </div>
 </section>
 
-
-<section class="routine">
-
-<h2>5 Step SPF Morning Routine</h2>
-
-<div class="steps">
-
-<div class="step">Cleanser</div>
-<div class="step">Toner</div>
-<div class="step">Vitamin C</div>
-<div class="step">Moisturizer</div>
-<div class="step">SPF 50</div>
-
-</div>
-
+<!-- ROUTINE STEPS -->
+<section class="routine" id="routine">
+  <div class="routine-header">
+    <h2>The 5-Step <em>SPF Morning</em> Routine</h2>
+    <p>Follow this dermatologist-approved sequence for all-day sun protection that doesn't mess with your makeup.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <span class="step-num">01</span>
+      <span class="step-icon">🧼</span>
+      <div class="step-title">Gentle Cleanser</div>
+      <p class="step-desc">Start with a pH-balanced, non-stripping cleanser. Avoid harsh soaps that compromise your skin barrier — a healthy barrier helps sunscreen absorb better.</p>
+      <div class="step-tip">💡 Pro tip: Lukewarm water only. Hot water strips natural oils.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">02</span>
+      <span class="step-icon">💧</span>
+      <div class="step-title">Lightweight Toner</div>
+      <p class="step-desc">A hydrating toner preps your skin to receive moisture. Look for niacinamide or hyaluronic acid — both play well with SPF and reduce pore appearance.</p>
+      <div class="step-tip">💡 Pro tip: Pat, don't rub — preserves skin's moisture barrier.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">03</span>
+      <span class="step-icon">✨</span>
+      <div class="step-title">Vitamin C Serum</div>
+      <p class="step-desc">Applied before SPF, Vitamin C boosts your sunscreen's protective power by up to 8x. It neutralizes free radicals that slip past SPF filters.</p>
+      <div class="step-tip">💡 Pro tip: Wait 60 seconds before next step for full absorption.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">04</span>
+      <span class="step-icon">🫧</span>
+      <div class="step-title">Moisturizer</div>
+      <p class="step-desc">Use a lightweight, non-comedogenic moisturizer. For oily skin, gel formulas work best. For dry skin, opt for hyaluronic acid-based creams before SPF.</p>
+      <div class="step-tip">💡 Pro tip: Let it fully absorb before applying sunscreen on top.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">05</span>
+      <span class="step-icon">☀️</span>
+      <div class="step-title">Sunscreen SPF 50</div>
+      <p class="step-desc">Always the last skincare step, before primer and makeup. Apply a nickel-sized amount — most people use 25% of what's actually needed for full protection.</p>
+      <div class="step-tip">💡 Pro tip: Reapply every 2 hours if outdoors. Use SPF powder for touch-ups.</div>
+    </div>
+    <div class="step-card" style="background: var(--terracotta); color: white;">
+      <span class="step-num" style="color: rgba(255,255,255,0.15);">✦</span>
+      <span class="step-icon">🔁</span>
+      <div class="step-title" style="color: white;">Reapplication Rule</div>
+      <p class="step-desc" style="color: rgba(255,255,255,0.8);">No SPF lasts all day. Reapply every 2 hours when outdoors, after swimming or heavy sweating. SPF powder sprays make midday reapplication effortless.</p>
+      <div class="step-tip" style="background: rgba(255,255,255,0.15); border-color: white; color: white;">💡 Pro tip: Set a phone reminder — your skin will thank you at 40.</div>
+    </div>
+  </div>
 </section>
 
-
-<footer>
-
-<p>© 2025 GlowShield</p>
-
-</footer>
-
-</body>
-</html>
- <Style>
-setion: relative;
-  }
-  .pdf-icon::before {
-    content: 'PDF';
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--rust);
-    letter-spacing: 0.05em;
-  }
-  .pdf-icon::after {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 0; height: 0;
-    border-style: solid;
-    border-width: 0 12px 12px 0;
-    border-color: transparent var(--cream) transparent transparent;
-  }
-
-  .pdf-meta strong {
-    display: block;
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  .pdf-meta span {
-    font-size: 13px;
-    color: #7a7268;
-  }
-
-  .pdf-lock {
-    margin-left: auto;
-    font-size: 22px;
-    opacity: 0.3;
-  }
-
-  /* Form */
-  .form-section {
-    animation: fadeUp 0.6s 0.4s ease both;
-  }
-
-  .form-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #7a7268;
-    margin-bottom: 12px;
-  }
-
-  .input-wrap {
-    position: relative;
-    margin-bottom: 14px;
-  }
-
-  .gmail-icon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-  }
-
-  input[type="email"] {
-    width: 100%;
-    padding: 18px 18px 18px 48px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: var(--ink);
-    background: var(--white);
-    border: 1.5px solid rgba(13,13,13,0.18);
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    -webkit-appearance: none;
-  }
-  input[type="email"]::placeholder { color: #b0a89a; }
-  input[type="email"]:focus {
-    border-color: var(--ink);
-    box-shadow: 3px 3px 0 rgba(13,13,13,0.08);
-  }
-
-  .cta-btn {
-    width: 100%;
-    padding: 18px;
-    background: var(--ink);
-    color: var(--gold-light);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 4px 4px 0 var(--gold);
-  }
-  .cta-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--gold);
-  }
-  .cta-btn:active {
-    transform: translate(0,0);
-    box-shadow: 2px 2px 0 var(--gold);
-  }
-  .cta-btn.loading { pointer-events: none; opacity: 0.7; }
-
-  .cta-btn .btn-text { display: block; transition: opacity 0.2s; }
-  .cta-btn .btn-spinner {
-    display: none;
-    position: absolute;
-    inset: 0;
-    align-items: center;
-    justify-content: center;
-  }
-  .cta-btn.loading .btn-text { opacity: 0; }
-  .cta-btn.loading .btn-spinner { display: flex; }
-
-  .spinner-ring {
-    width: 20px; height: 20px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: var(--gold-light);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
-
-  /* Success */
-  .success-state {
-    display: none;
-    text-align: center;
-    padding: 40px 20px;
-    animation: fadeUp 0.5s ease both;
-  }
-  .success-state.visible { display: block; }
-  .success-icon {
-    width: 60px; height: 60px;
-    background: var(--ink);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 26px;
-  }
-  .success-state h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-  .success-state p {
-    color: #6a6258;
-    font-size: 15px;
-    margin-bottom: 28px;
-    line-height: 1.6;
-  }
-  .download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--gold);
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 16px 32px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 3px 3px 0 var(--rust);
-  }
-  .download-btn:hover {
-    transform: translate(-2px,-2px);
-    box-shadow: 5px 5px 0 var(--rust);
-  }
-
-  /* Trust strip */
-  .trust {
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: #9a9288;
-    animation: fadeUp 0.6s 0.5s ease both;
-  }
-  .trust svg { flex-shrink: 0; }
-
-  /* Divider */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 32px 0;
-    animation: fadeUp 0.6s 0.45s ease both;
-  }
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(13,13,13,0.1);
-  }
-  .divider span {
-    font-size: 12px;
-    color: #b0a89a;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  /* Gmail button */
-  .gmail-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px;
-    background: var(--white);
-    border: 1.5px solid rgba(13,13,13,0.18);
-    border-radius: 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink);
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    margin-bottom: 14px;
-  }
-  .gmail-btn:hover {
-    border-color: var(--ink);
-    box-shadow: 2px 2px 0 rgba(13,13,13,0.08);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
-</head>
-<body>
-<div class="page">
-
-  <div class="badge">Free Resource</div>
-
-  <h1>Get the Guide.<br><em>Instantly.</em></h1>
-
-  <p class="subhead">
-    Enter your Gmail below to unlock the free PDF guide — delivered straight to your inbox the moment you sign up.
-  </p>
-
-  <!-- PDF Preview -->
-  <div class="pdf-card">
-    <div class="pdf-icon"></div>
-    <div class="pdf-meta">
-      <strong>The Complete Starter Guide</strong>
-      <span>PDF · 24 pages · Free download</span>
-    </div>
-    <div class="pdf-lock">🔒</div>
+<!-- SKIN TYPES -->
+<section class="skin-types" id="skin-types">
+  <div class="skin-types-header">
+    <div class="section-label">Skin Types</div>
+    <h2>Find Your <em>Perfect SPF Match</em><br>By Skin Type</h2>
   </div>
-
-  <!-- Form -->
-  <div class="form-section" id="formSection">
-    <label class="form-label" for="emailInput">Your Gmail address</label>
-
-    <!-- One-click Gmail shortcut -->
-    <a class="gmail-btn" href="https://mail.google.com" target="_blank" id="gmailQuick">
-      <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M44 24.5C44 23.2 43.9 22 43.7 20.8H24V27.8H35.1C34.6 30.3 33.1 32.4 31 33.8V38.2H37.7C41.6 34.6 44 30 44 24.5Z" fill="#4285F4"/>
-        <path d="M24 44C29.5 44 34.1 42.1 37.7 38.2L31 33.8C29.1 35 26.8 35.8 24 35.8C18.7 35.8 14.2 32.2 12.5 27.3H5.6V31.8C9.2 39.1 16 44 24 44Z" fill="#34A853"/>
-        <path d="M12.5 27.3C12.1 26.1 11.8 24.8 11.8 23.5C11.8 22.2 12.1 20.9 12.5 19.7V15.2H5.6C4.2 17.9 3.5 20.6 3.5 23.5C3.5 26.4 4.2 29.1 5.6 31.8L12.5 27.3Z" fill="#FBBC05"/>
-        <path d="M24 11.2C27 11.2 29.7 12.2 31.9 14.3L37.9 8.3C34.1 4.8 29.5 2.5 24 2.5C16 2.5 9.2 7.4 5.6 14.7L12.5 19.2C14.2 14.3 18.7 11.2 24 11.2Z" fill="#EA4335"/>
-      </svg>
-      Open Gmail to sign up directly
-    </a>
-
-    <div class="divider"><span>or enter below</span></div>
-
-    <div class="input-wrap">
-      <svg class="gmail-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M44 24.5C44 23.2 43.9 22 43.7 20.8H24V27.8H35.1C34.6 30.3 33.1 32.4 31 33.8V38.2H37.7C41.6 34.6 44 30 44 24.5Z" fill="#4285F4"/>
-        <path d="M24 44C29.5 44 34.1 42.1 37.7 38.2L31 33.8C29.1 35 26.8 35.8 24 35.8C18.7 35.8 14.2 32.2 12.5 27.3H5.6V31.8C9.2 39.1 16 44 24 44Z" fill="#34A853"/>
-        <path d="M12.5 27.3C12.1 26.1 11.8 24.8 11.8 23.5C11.8 22.2 12.1 20.9 12.5 19.7V15.2H5.6C4.2 17.9 3.5 20.6 3.5 23.5C3.5 26.4 4.2 29.1 5.6 31.8L12.5 27.3Z" fill="#FBBC05"/>
-        <path d="M24 11.2C27 11.2 29.7 12.2 31.9 14.3L37.9 8.3C34.1 4.8 29.5 2.5 24 2.5C16 2.5 9.2 7.4 5.6 14.7L12.5 19.2C14.2 14.3 18.7 11.2 24 11.2Z" fill="#EA4335"/>
-      </svg>
-      <input type="email" id="emailInput" placeholder="yourname@gmail.com" autocomplete="email">
+  <div class="skin-grid">
+    <div class="skin-card">
+      <div class="skin-type-name">Oily Skin</div>
+      <div class="skin-badge">Most Searched</div>
+      <p class="skin-rec">Look for <strong>gel-based or water-based</strong> formulas. Key words: oil-free, matte finish, non-comedogenic, SPF 50. <strong>Avoid</strong>: heavy creams, coconut oil base.</p>
     </div>
-
-    <button class="cta-btn" id="submitBtn" onclick="handleSubmit()">
-      <span class="btn-text">Send Me the Free PDF →</span>
-      <span class="btn-spinner"><span class="spinner-ring"></span></span>
-    </button>
-
-    <div class="trust">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      No spam, ever. Unsubscribe anytime. Your email is safe.
+    <div class="skin-card">
+      <div class="skin-type-name">Dry Skin</div>
+      <div class="skin-badge">Hydration First</div>
+      <p class="skin-rec">Choose <strong>cream-based SPF</strong> with added moisturizers. Look for hyaluronic acid, ceramides, or glycerin in the formula for all-day comfort.</p>
+    </div>
+    <div class="skin-card">
+      <div class="skin-type-name">Sensitive Skin</div>
+      <div class="skin-badge">Gentle Formula</div>
+      <p class="skin-rec"><strong>Mineral sunscreen</strong> (zinc oxide or titanium dioxide) is your best friend. Avoid chemical filters like oxybenzone — they trigger reactions.</p>
+    </div>
+    <div class="skin-card">
+      <div class="skin-type-name">Dark Skin</div>
+      <div class="skin-badge">No White Cast</div>
+      <p class="skin-rec">Specifically seek out <strong>tinted mineral SPF</strong> or chemical sunscreens labeled "no white cast." Korean SPF brands lead the way in invisible formulas.</p>
     </div>
   </div>
+</section>
 
-  <!-- Success State -->
-  <div class="success-state" id="successState">
-    <div class="success-icon">📬</div>
-    <h2>You're in!</h2>
-    <p>Check your Gmail inbox — your free PDF guide is on its way. Click below to download it directly.</p>
-    <a class="download-btn" href="#" id="downloadLink" download="free-guide.pdf">
-      ⬇ Download PDF Guide
-    </a>
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-label" style="writing-mode:horizontal-tb; transform:none; margin-bottom:12px;">Top Picks</div>
+      <h2>Editor's <em>SPF Picks</em><br>For Every Skin Type</h2>
+    </div>
+    <a href="#" class="btn-secondary">View All Reviews →</a>
   </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img product-img-1">
+        <div class="product-badge">Best Seller</div>
+        ☀️
+      </div>
+      <div class="product-info">
+        <div class="product-category">Oily Skin · Matte Finish</div>
+        <div class="product-name">EltaMD UV Clear Tinted</div>
+        <p class="product-desc">Lightweight, oil-free formula with niacinamide. Zero white cast, perfect under makeup. Dermatologist #1 recommended in the US.</p>
+        <div class="product-footer">
+          <div class="product-spf">46 <span>SPF</span></div>
+          <a href="#" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-2">
+        <div class="product-badge">K-Beauty Pick</div>
+        🌸
+      </div>
+      <div class="product-info">
+        <div class="product-category">All Skin Types · No White Cast</div>
+        <div class="product-name">Beauty of Joseon Relief Sun</div>
+        <p class="product-desc">The cult Korean SPF that works on every skin tone. Blurs pores, hydrates, and disappears into skin like it was never there.</p>
+        <div class="product-footer">
+          <div class="product-spf">50+ <span>SPF</span></div>
+          <a href="#" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-3">
+        <div class="product-badge">Sensitive Safe</div>
+        🌿
+      </div>
+      <div class="product-info">
+        <div class="product-category">Sensitive · Mineral Formula</div>
+        <div class="product-name">CeraVe Hydrating Mineral SPF</div>
+        <p class="product-desc">100% mineral sunscreen with ceramides and hyaluronic acid. Fragrance-free, reef-safe, and gentle enough for post-procedure skin.</p>
+        <div class="product-footer">
+          <div class="product-spf">30 <span>SPF</span></div>
+          <a href="#" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-left">
+    <h2>Frequently<br>Asked <em>Questions</em></h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Should I apply sunscreen before or after moisturizer?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">Always apply sunscreen as the last step in your skincare routine, after moisturizer. For chemical sunscreens, apply to bare skin before moisturizer. For mineral sunscreens, after moisturizer is perfect. When in doubt — sunscreen goes on last, before primer and makeup.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Do I need sunscreen on cloudy days indoors?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">Yes. Up to 80% of UV rays penetrate clouds. And if you sit near a window indoors, UVA rays (the aging rays) pass right through glass. Daily SPF — rain, shine, or home office — is the single best anti-aging habit you can build.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">What SPF number do I actually need?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">Dermatologists recommend SPF 30 as a daily minimum for most people, and SPF 50 for outdoor activities, beach days, or darker skin tones that need protection from hyperpigmentation. Beyond SPF 50, the added protection is minimal — consistent reapplication matters more than a higher number.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">Why does sunscreen leave a white cast on my skin?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">White cast is caused by mineral filters (zinc oxide and titanium dioxide) that sit on top of the skin and reflect light. Chemical sunscreens absorb into the skin and generally don't cause white cast. For darker skin tones, look specifically for "tinted mineral" or "invisible finish" formulas — Korean SPF brands excel at this.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">How do I reapply sunscreen over makeup?</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">SPF setting sprays and powder sunscreens are your best option for midday reapplication over makeup. They're mess-free, effective, and won't disturb your foundation. Brands like Supergoop Glowscreen and Brush-On Block SPF 30 are US audience favorites for this exact use case.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Start Your <em>SPF Routine</em><br>This Morning</h2>
+  <p>Join thousands of US skincare lovers who've found their perfect sunscreen match. No more white cast, no more guessing.</p>
+  <a href="#products" class="btn-white">Find My Sunscreen →</a>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -941,41 +1298,31 @@ setion: relative;
     <p>Some links are affiliate links. We earn a small commission at no cost to you.</p>
   </div>
 </footer>
-<script>
-function handleSubmit() {
-  const email = document.getElementById('emailInput').value.trim();
-  const btn = document.getElementById('submitBtn');
 
-  if (!email || !email.includes('@')) {
-    document.getElementById('emailInput').style.borderColor = '#c04b2c';
-    document.getElementById('emailInput').focus();
-    return;
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 
-  // Reset border
-  document.getElementById('emailInput').style.borderColor = '';
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
 
-  // Show loading
-  btn.classList.add('loading');
-
-  // Simulate API call / email send
-  setTimeout(() => {
-    document.getElementById('formSection').style.display = 'none';
-    document.getElementById('successState').classList.add('visible');
-
-    // Open Gmail compose to simulate email delivery
-    const subject = encodeURIComponent('Your Free PDF Guide Is Here!');
-    const body = encodeURIComponent('Hi there,\n\nThank you for signing up! Here is your free PDF guide.\n\n[Attach your PDF here]\n\nBest,\nYour Team');
-    window.open(`https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${body}`, '_blank');
-  }, 1800);
-}
-
-// Enter key support
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('emailInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleSubmit();
+  document.querySelectorAll('.step-card, .skin-card, .product-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
   });
-});
 </script>
 </body>
 </html>
