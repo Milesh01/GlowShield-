@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowShield | SPF Morning Routine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--cream:#FAF6F0;
+--warm-white:#FFFDF9;
+--terracotta:#C8674A;
+--gold:#C9A96E;
+--charcoal:#2A2A2A;
+--mid-gray:#6B6B6B;
+--light-gray:#E8E4DF;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--cream);
+color:var(--charcoal);
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:var(--warm-white);
+border-bottom:1px solid var(--light-gray);
+}
+
+.logo{
+font-family:'Cormorant Garamond',serif;
+font-size:24px;
+color:var(--terracotta);
+}
+
+nav ul{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+font-size:14px;
+color:var(--mid-gray);
+}
+
+nav a:hover{
+color:var(--terracotta);
+}
+
+/* HERO */
+
+.hero{
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+padding:80px 40px;
+}
+
+.hero h1{
+font-family:'Cormorant Garamond',serif;
+font-size:60px;
+line-height:1.1;
+}
+
+.hero span{
+color:var(--terracotta);
+}
+
+.hero p{
+margin:20px 0;
+color:var(--mid-gray);
+max-width:400px;
+}
+
+.btn{
+display:inline-block;
+padding:14px 30px;
+background:var(--terracotta);
+color:white;
+text-decoration:none;
+font-size:13px;
+letter-spacing:1px;
+margin-top:10px;
+}
+
+/* FEATURES */
+
+.features{
+padding:80px 40px;
+background:var(--warm-white);
+}
+
+.features-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+.feature{
+padding:30px;
+border:1px solid var(--light-gray);
+background:white;
+}
+
+.feature h3{
+font-family:'Cormorant Garamond',serif;
+margin-bottom:10px;
+}
+
+.feature p{
+font-size:14px;
+color:var(--mid-gray);
+}
+
+/* ROUTINE PREVIEW */
+
+.routine{
+padding:80px 40px;
+text-align:center;
+}
+
+.routine h2{
+font-family:'Cormorant Garamond',serif;
+font-size:40px;
+margin-bottom:30px;
+}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+}
+
+.step{
+padding:20px;
+border:1px solid var(--light-gray);
+background:white;
+font-size:14px;
+}
+
+/* FOOTER */
+
+footer{
+background:var(--charcoal);
+color:white;
+padding:40px;
+text-align:center;
+margin-top:60px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+gap:40px;
+}
+
+.features-grid{
+grid-template-columns:1fr;
+}
+
+.steps{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">GlowShield</div>
+
+<ul>
+<li><a href="routine.html">Routine</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="guides.html">Guides</a></li>
+<li><a href="faq.html">FAQ</a></li>
+</ul>
+</nav>
+
+
+<section class="hero">
+
+<div>
+<h1>Your Perfect <span>SPF Morning Routine</span></h1>
+
+<p>
+Discover the dermatologist-approved sunscreen routine that protects your skin every day.
+</p>
+
+<a href="routine.html" class="btn">Build My Routine</a>
+
+</div>
+
+<div>
+<img src="sun.png" width="300">
+</div>
+
+</section>
+
+
+<section class="features">
+
+<div class="features-grid">
+
+<div class="feature">
+<h3>SPF Routine</h3>
+<p>Learn the perfect step-by-step sunscreen routine for healthy skin.</p>
+</div>
+
+<div class="feature">
+<h3>Skin Type Guide</h3>
+<p>Find the best sunscreen for oily, dry, or sensitive skin.</p>
+</div>
+
+<div class="feature">
+<h3>Top SPF Picks</h3>
+<p>Explore dermatologist recommended sunscreens.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="routine">
+
+<h2>5 Step SPF Morning Routine</h2>
+
+<div class="steps">
+
+<div class="step">Cleanser</div>
+<div class="step">Toner</div>
+<div class="step">Vitamin C</div>
+<div class="step">Moisturizer</div>
+<div class="step">SPF 50</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>© 2025 GlowShield</p>
+
+</footer>
+
+</body>
+</html>
