@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowShield — Sun Protection For Every Skin Type</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF6F0;
+  --warm-white: #FFFDF9;
+  --terracotta: #C8674A;
+  --terracotta-light: #E8937A;
+  --terracotta-pale: #F5E6DF;
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --forest: #3D5A47;
+  --forest-light: #5A7A65;
+  --charcoal: #2A2A2A;
+  --mid-gray: #6B6B6B;
+  --light-gray: #E8E4DF;
+  --off-white: #F2EDE6;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--terracotta);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--terracotta);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.4s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  opacity: 0.5;
+}
+
+/* NOISE TEXTURE */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.5;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed; top: 0; width: 100%;
+  z-index: 500;
+  padding: 22px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(250,246,240,0.92);
+  backdrop-filter: blur(20px);
+  padding: 16px 60px;
+  border-bottom: 1px solid rgba(201,169,110,0.18);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px; font-weight: 600;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.4s;
+}
+nav.scrolled .nav-logo { color: var(--terracotta); }
+.nav-logo span { color: var(--gold); }
+nav.scrolled .nav-logo span { color: var(--gold); }
+
+.nav-center {
+  display: flex; gap: 40px; list-style: none;
+}
+.nav-center a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 12px; font-weight: 400;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-center a::after {
+  content: ''; position: absolute;
+  bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.nav-center a:hover::after { width: 100%; }
+nav.scrolled .nav-center a { color: var(--mid-gray); }
+nav.scrolled .nav-center a:hover { color: var(--terracotta); }
+
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-btn {
+  background: var(--terracotta);
+  color: white; padding: 10px 26px;
+  border-radius: 1px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 1.8px; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: 1px solid var(--terracotta);
+}
+.nav-btn:hover { background: transparent; color: var(--terracotta); }
+nav.scrolled .nav-btn { color: white; }
+nav.scrolled .nav-btn:hover { color: var(--terracotta); background: transparent; }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 6px;
+  cursor: none; padding: 4px;
+}
+.hamburger span {
+  width: 26px; height: 1.5px;
+  background: white; transition: all 0.3s;
+}
+nav.scrolled .hamburger span { background: var(--charcoal); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed; inset: 0;
+  background: var(--charcoal);
+  z-index: 490;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+.mobile-menu ul { list-style: none; text-align: center; }
+.mobile-menu li { margin-bottom: 32px; }
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px; font-weight: 300;
+  color: white; text-decoration: none;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--terracotta-light); }
+.mobile-close {
+  position: absolute; top: 24px; right: 24px;
+  color: rgba(255,255,255,0.5); font-size: 32px;
+  cursor: none; background: none; border: none;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--charcoal);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 60px 80px;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(200,103,74,0.25) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(201,169,110,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(61,90,71,0.1) 0%, transparent 70%);
+}
+
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); animation: float 8s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(200,103,74,0.2); top: -100px; right: -100px; animation-delay: 0s; }
+.orb-2 { width: 300px; height: 300px; background: rgba(201,169,110,0.15); bottom: 100px; left: -50px; animation-delay: -3s; }
+.orb-3 { width: 200px; height: 200px; background: rgba(61,90,71,0.2); top: 40%; right: 20%; animation-delay: -6s; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; position: relative; z-index: 2;
+}
+.hero-eyebrow-line { width: 48px; height: 1px; background: var(--gold); }
+.hero-eyebrow-text {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(60px, 9vw, 130px);
+  font-weight: 300; line-height: 0.92;
+  color: white; position: relative; z-index: 2;
+  margin-bottom: 48px;
+}
+.hero-title em { font-style: italic; color: var(--terracotta-light); display: block; }
+.hero-title .outline-text {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  color: transparent;
+}
+
+.hero-bottom {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  position: relative; z-index: 2;
+  flex-wrap: wrap; gap: 32px;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300; max-width: 380px;
+}
+.hero-actions {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 24px;
+}
+.hero-cta {
+  background: var(--terracotta);
+  color: white; padding: 18px 48px;
+  border-radius: 1px; text-decoration: none;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 500; transition: all 0.3s;
+  display: inline-block;
+}
+.hero-cta:hover {
+  background: var(--terracotta-light);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(200,103,74,0.4);
+}
+.hero-scroll {
+  display: flex; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.4);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0%,100% { opacity: 0.4; } 50% { opacity: 0.8; }
+}
+.scroll-arrow { width: 24px; height: 24px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+/* ─── TICKER ─── */
+.ticker {
+  background: var(--terracotta);
+  padding: 14px 0; overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex; gap: 0;
+  animation: ticker-move 30s linear infinite;
+}
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 32px;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: white; font-weight: 400; padding-right: 48px;
+}
+.ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+@keyframes ticker-move {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── TRUST BAR ─── */
+.trust-bar {
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--light-gray);
+  padding: 40px 60px;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background-color: var(--light-gray);
+}
+.trust-item {
+  background: var(--warm-white);
+  padding: 32px 40px;
+  text-align: center;
+  transition: background 0.3s;
+}
+.trust-item:hover { background: var(--off-white); }
+.trust-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px; font-weight: 300;
+  color: var(--terracotta); line-height: 1;
+  margin-bottom: 8px;
+}
+.trust-label {
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--mid-gray); font-weight: 500;
+}
+
+/* ─── MARQUEE CATEGORIES ─── */
+.categories-marquee {
+  padding: 80px 0;
+  overflow: hidden; background: var(--cream);
+}
+.marquee-title {
+  text-align: center; margin-bottom: 48px; padding: 0 60px;
+}
+.marquee-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 300;
+  color: var(--charcoal);
+}
+.marquee-title h2 em { font-style: italic; color: var(--terracotta); }
+
+.marquee-row {
+  display: flex; gap: 16px;
+  animation: marquee-scroll 20s linear infinite;
+  width: max-content; margin-bottom: 16px;
+}
+.marquee-row.reverse { animation-direction: reverse; animation-duration: 25s; }
+
+.marquee-tag {
+  white-space: nowrap;
+  padding: 14px 28px;
+  border: 1px solid var(--light-gray);
+  border-radius: 100px;
+  font-size: 13px; color: var(--mid-gray);
+  font-weight: 300; background: var(--warm-white);
+  transition: all 0.3s; cursor: default;
+}
+.marquee-tag:hover {
+  background: var(--terracotta);
+  color: white; border-color: var(--terracotta);
+}
+.marquee-tag.active {
+  background: var(--charcoal);
+  color: var(--gold); border-color: var(--charcoal);
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── FEATURED ARTICLES ─── */
+.featured {
+  padding: 100px 60px;
+  background: var(--warm-white);
+}
+.section-header {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px; flex-wrap: wrap; gap: 20px;
+}
+.section-header-left {}
+.section-eyebrow {
+  font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 500; margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 300;
+  line-height: 1.1; color: var(--charcoal);
+}
+.section-title em { font-style: italic; color: var(--terracotta); }
+.view-all {
+  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--terracotta); text-decoration: none; font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
+  transition: gap 0.3s;
+}
+.view-all:hover { gap: 16px; }
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px; background: var(--light-gray);
+}
+
+.article-card {
+  background: var(--warm-white);
+  overflow: hidden; position: relative;
+  cursor: none; group: true;
+  transition: all 0.4s ease;
+}
+.article-card:hover { transform: scale(0.995); }
+.article-card.large { grid-row: span 2; }
+
+.article-img {
+  width: 100%; overflow: hidden;
+  position: relative;
+}
+.article-card.large .article-img { height: 420px; }
+.article-card:not(.large) .article-img { height: 220px; }
+
+.article-img-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px;
+  transition: transform 0.6s ease;
+}
+.article-card:hover .article-img-inner { transform: scale(1.06); }
+
+.img-bg-1 { background: linear-gradient(135deg, #F5E6DF 0%, #E8C4A0 100%); }
+.img-bg-2 { background: linear-gradient(135deg, #E8E4F5 0%, #C4BCE8 100%); }
+.img-bg-3 { background: linear-gradient(135deg, #E4F0E8 0%, #B8D4C0 100%); }
+.img-bg-4 { background: linear-gradient(135deg, #F5F0E0 0%, #E8D8A0 100%); }
+.img-bg-5 { background: linear-gradient(135deg, #F0E8E4 0%, #D4B8B0 100%); }
+
+.article-cat-badge {
+  position: absolute; top: 20px; left: 20px;
+  background: var(--terracotta); color: white;
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 5px 14px;
+  border-radius: 1px; font-weight: 500;
+}
+
+.article-body { padding: 28px; }
+.article-meta {
+  font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 500; margin-bottom: 10px;
+}
+.article-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600; color: var(--charcoal);
+  line-height: 1.2; margin-bottom: 12px;
+  transition: color 0.3s;
+}
+.article-card.large .article-title { font-size: 28px; }
+.article-card:not(.large) .article-title { font-size: 20px; }
+.article-card:hover .article-title { color: var(--terracotta); }
+
+.article-excerpt {
+  font-size: 13px; line-height: 1.8;
+  color: var(--mid-gray); font-weight: 300;
+}
+.article-card:not(.large) .article-excerpt { display: none; }
+
+.article-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px; border-top: 1px solid var(--light-gray);
+}
+.article-read {
+  font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--terracotta);
+  text-decoration: none; font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+  transition: gap 0.3s;
+}
+.article-read:hover { gap: 12px; }
+.article-time { font-size: 12px; color: var(--mid-gray); font-weight: 300; }
+
+/* ─── SKIN QUIZ BANNER ─── */
+.quiz-banner {
+  margin: 0 60px;
+  background: var(--forest);
+  padding: 80px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.quiz-banner::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.quiz-banner::after {
+  content: '';
+  position: absolute; bottom: -100px; left: 200px;
+  width: 400px; height: 400px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.quiz-tag {
+  font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold-light);
+  font-weight: 500; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.quiz-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.quiz-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px); font-weight: 300;
+  color: white; line-height: 1.1; margin-bottom: 20px;
+}
+.quiz-title em { font-style: italic; color: var(--terracotta-light); }
+.quiz-desc {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(255,255,255,0.65); font-weight: 300;
+  margin-bottom: 40px;
+}
+.btn-quiz {
+  background: var(--terracotta);
+  color: white; padding: 18px 48px;
+  border: none; border-radius: 1px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; cursor: none;
+  text-decoration: none; display: inline-block;
+  font-weight: 500; transition: all 0.3s;
+}
+.btn-quiz:hover {
+  background: var(--terracotta-light);
+  transform: translateY(-2px);
+}
+
+.quiz-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; position: relative; z-index: 2;
+}
+.quiz-option {
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 24px 20px;
+  cursor: none; transition: all 0.3s;
+  background: rgba(255,255,255,0.03);
+}
+.quiz-option:hover {
+  border-color: var(--terracotta-light);
+  background: rgba(200,103,74,0.1);
+  transform: translateY(-3px);
+}
+.quiz-option-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+.quiz-option-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600;
+  color: white; margin-bottom: 6px;
+}
+.quiz-option-desc {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  font-weight: 300; line-height: 1.6;
+}
+
+/* ─── BEST SELLERS ─── */
+.bestsellers {
+  padding: 100px 60px;
+  background: var(--cream);
+}
+.products-scroll {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px; margin-top: 56px;
+}
+.product-card {
+  background: var(--warm-white);
+  border: 1px solid var(--light-gray);
+  overflow: hidden; position: relative;
+  transition: all 0.4s ease; cursor: none;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+  border-color: var(--gold-light);
+}
+.product-img-area {
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px; position: relative; overflow: hidden;
+}
+.p-img-1 { background: linear-gradient(135deg, #F5E6DF, #F0C8A8); }
+.p-img-2 { background: linear-gradient(135deg, #E8F0EC, #C4DCC8); }
+.p-img-3 { background: linear-gradient(135deg, #E8E4F5, #CAC0EC); }
+.p-img-4 { background: linear-gradient(135deg, #F5F0E0, #E8D898); }
+
+.p-badge {
+  position: absolute; top: 14px; left: 14px;
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 1px; font-weight: 500;
+}
+.badge-hot { background: var(--terracotta); color: white; }
+.badge-new { background: var(--forest); color: white; }
+.badge-top { background: var(--gold); color: white; }
+.badge-pick { background: var(--charcoal); color: white; }
+
+.p-spf-circle {
+  position: absolute; bottom: 14px; right: 14px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.p-spf-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 700; color: var(--terracotta);
+  line-height: 1;
+}
+.p-spf-txt { font-size: 7px; color: var(--mid-gray); letter-spacing: 1px; text-transform: uppercase; }
+
+.p-info { padding: 22px; }
+.p-cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 6px; }
+.p-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; line-height: 1.2; }
+.p-desc { font-size: 12px; color: var(--mid-gray); line-height: 1.7; font-weight: 300; margin-bottom: 18px; }
+.p-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; border-top: 1px solid var(--light-gray);
+}
+.p-stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; }
+.p-link {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--terracotta); text-decoration: none; font-weight: 500;
+  transition: letter-spacing 0.3s;
+}
+.p-link:hover { letter-spacing: 2.5px; }
+
+/* ─── EDITORIAL STRIP ─── */
+.editorial {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--charcoal);
+}
+.editorial-left {
+  padding: 100px 60px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.editorial-left::before {
+  content: '"';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 400px; font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  position: absolute; top: -80px; left: -20px;
+  line-height: 1; pointer-events: none;
+}
+.editorial-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3vw, 40px); font-weight: 300;
+  font-style: italic; color: white; line-height: 1.4;
+  margin-bottom: 32px; position: relative; z-index: 2;
+}
+.editorial-quote em { color: var(--terracotta-light); font-style: normal; }
+.editorial-attr {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+  display: flex; align-items: center; gap: 16px;
+}
+.editorial-attr::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+
+.editorial-right {
+  display: grid; grid-template-rows: 1fr 1fr;
+  gap: 1px; background: rgba(255,255,255,0.06);
+}
+.editorial-stat {
+  background: var(--charcoal);
+  padding: 48px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s;
+}
+.editorial-stat:hover { background: rgba(200,103,74,0.08); }
+.e-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px; font-weight: 300;
+  color: var(--terracotta-light); line-height: 1;
+  margin-bottom: 12px;
+}
+.e-stat-label {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  line-height: 1.6; font-weight: 300; max-width: 220px;
+}
+
+/* ─── ROUTINE PREVIEW ─── */
+.routine-preview {
+  padding: 100px 60px;
+  background: var(--off-white);
+}
+.routine-cards {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--light-gray);
+  margin-top: 56px;
+}
+.r-card {
+  background: var(--warm-white);
+  padding: 40px 28px;
+  text-align: center; position: relative;
+  transition: all 0.3s;
+}
+.r-card:hover {
+  background: var(--terracotta);
+  transform: translateY(-4px);
+  z-index: 2;
+}
+.r-card:hover .r-num,
+.r-card:hover .r-title,
+.r-card:hover .r-desc { color: white; }
+.r-card:hover .r-icon-circle { background: rgba(255,255,255,0.2); }
+
+.r-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 20px;
+  transition: color 0.3s;
+}
+.r-icon-circle {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--terracotta-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin: 0 auto 20px;
+  transition: background 0.3s;
+}
+.r-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--charcoal); margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.r-desc {
+  font-size: 12px; color: var(--mid-gray);
+  line-height: 1.7; font-weight: 300;
+  transition: color 0.3s;
+}
+
+/* ─── NEWSLETTER ─── */
+.newsletter {
+  padding: 100px 60px;
+  background: var(--cream);
+  text-align: center; position: relative; overflow: hidden;
+}
+.newsletter-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(200,103,74,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.nl-eyebrow {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 20px;
+}
+.nl-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px); font-weight: 300;
+  color: var(--charcoal); line-height: 1.1;
+  margin-bottom: 20px; position: relative; z-index: 2;
+}
+.nl-title em { font-style: italic; color: var(--terracotta); }
+.nl-sub {
+  font-size: 15px; color: var(--mid-gray);
+  font-weight: 300; line-height: 1.8;
+  max-width: 480px; margin: 0 auto 48px;
+  position: relative; z-index: 2;
+}
+.nl-form {
+  display: flex; gap: 0;
+  max-width: 480px; margin: 0 auto;
+  position: relative; z-index: 2;
+}
+.nl-input {
+  flex: 1;
+  padding: 18px 24px;
+  border: 1px solid var(--light-gray);
+  border-right: none;
+  border-radius: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--charcoal);
+  background: white; outline: none;
+  transition: border-color 0.3s;
+}
+.nl-input:focus { border-color: var(--terracotta); }
+.nl-input::placeholder { color: var(--mid-gray); font-weight: 300; }
+.nl-btn {
+  background: var(--terracotta); color: white;
+  padding: 18px 32px; border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 1.5px;
+  text-transform: uppercase; cursor: none;
+  font-weight: 500; transition: background 0.3s;
+  white-space: nowrap;
+}
+.nl-btn:hover { background: var(--charcoal); }
+.nl-privacy {
+  font-size: 12px; color: var(--mid-gray);
+  font-weight: 300; margin-top: 16px;
+  position: relative; z-index: 2;
+}
+
+/* ─── INSTAGRAM / PINTEREST FEED ─── */
+.feed-section {
+  padding: 60px 0 0;
+  background: var(--cream);
+  text-align: center;
+}
+.feed-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300;
+  color: var(--mid-gray); margin-bottom: 32px;
+  padding: 0 60px;
+}
+.feed-title strong { color: var(--terracotta); font-weight: 600; }
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 3px;
+}
+.feed-item {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; position: relative; overflow: hidden;
+  cursor: none;
+}
+.feed-item::after {
+  content: '☀️ View';
+  position: absolute; inset: 0;
+  background: rgba(200,103,74,0.85);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: white; font-weight: 500;
+  opacity: 0; transition: opacity 0.3s;
+}
+.feed-item:hover::after { opacity: 1; }
+.fi-1 { background: #F5E6DF; }
+.fi-2 { background: #E8F0EC; }
+.fi-3 { background: #F0E8F5; }
+.fi-4 { background: #F5F0E0; }
+.fi-5 { background: #E8F0F5; }
+.fi-6 { background: #F5E8E0; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--charcoal);
+  color: rgba(255,255,255,0.55);
+  padding: 80px 60px 48px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  gap: 60px; margin-bottom: 72px;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 600;
+  color: white; margin-bottom: 16px;
+  display: block; text-decoration: none;
+}
+.footer-logo span { color: var(--gold); }
+.footer-about {
+  font-size: 14px; line-height: 1.8;
+  font-weight: 300; margin-bottom: 28px;
+  max-width: 280px;
+}
+.social-links { display: flex; gap: 12px; }
+.social-btn {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; text-decoration: none;
+  transition: all 0.3s; color: rgba(255,255,255,0.5);
+}
+.social-btn:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: white;
+}
+.footer-col h4 {
+  font-size: 11px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 500; margin-bottom: 24px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 14px; }
+.footer-col a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.45);
+  font-size: 14px; font-weight: 300;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--terracotta-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 32px;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-bottom p { font-size: 12px; font-weight: 300; }
+.footer-disclaimer { font-size: 11px; color: rgba(255,255,255,0.3); max-width: 400px; line-height: 1.6; }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 1200px) {
+  .products-scroll { grid-template-columns: repeat(2, 1fr); }
+  .routine-cards { grid-template-columns: repeat(3, 1fr); }
+  .feed-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 14px 24px; }
+  .nav-center { display: none; }
+  .nav-right .nav-btn { display: none; }
+  .hamburger { display: flex; }
+
+  .hero { padding: 0 24px 60px; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-actions { align-items: flex-start; }
+
+  .trust-bar { grid-template-columns: repeat(2, 1fr); padding: 0; }
+
+  .featured { padding: 60px 24px; }
+  .articles-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .article-card.large { grid-row: span 1; }
+  .article-card.large .article-img { height: 260px; }
+  .article-card:not(.large) .article-img { height: 180px; }
+  .article-card:not(.large) .article-excerpt { display: block; }
+
+  .quiz-banner { grid-template-columns: 1fr; margin: 0 24px; padding: 48px 32px; }
+  .quiz-options { grid-template-columns: repeat(2, 1fr); }
+
+  .bestsellers { padding: 60px 24px; }
+  .products-scroll { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+  .editorial { grid-template-columns: 1fr; }
+  .editorial-left { padding: 60px 24px; }
+  .editorial-right { grid-template-rows: auto; grid-template-columns: 1fr 1fr; }
+  .editorial-stat { padding: 36px 28px; }
+
+  .routine-preview { padding: 60px 24px; }
+  .routine-cards { grid-template-columns: repeat(3, 1fr); }
+
+  .newsletter { padding: 60px 24px; }
+  .nl-form { flex-direction: column; }
+  .nl-input { border-right: 1px solid var(--light-gray); border-bottom: none; }
+  .nl-btn { padding: 16px; }
+
+  .feed-grid { grid-template-columns: repeat(3, 1fr); }
+  .feed-section { padding: 40px 0 0; }
+
+  footer { padding: 60px 24px 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .categories-marquee { padding: 60px 0; }
+  .marquee-title { padding: 0 24px; }
+}
+
+@media (max-width: 640px) {
+  .hero-title { font-size: 52px; }
+  .trust-bar { grid-template-columns: 1fr 1fr; }
+  .quiz-options { grid-template-columns: 1fr 1fr; }
+  .products-scroll { grid-template-columns: 1fr; }
+  .routine-cards { grid-template-columns: 1fr 1fr; }
+  .feed-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .editorial-right { grid-template-columns: 1fr; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose">✕</button>
+  <ul>
+    <li><a href="#articles" onclick="closeMobileMenu()">Articles</a></li>
+    <li><a href="#routine" onclick="closeMobileMenu()">Routines</a></li>
+    <li><a href="#products" onclick="closeMobileMenu()">Products</a></li>
+    <li><a href="#quiz" onclick="closeMobileMenu()">Skin Quiz</a></li>
+    <li><a href="#newsletter" onclick="closeMobileMenu()">Newsletter</a></li>
+  </ul>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Glow<span>Shield</span></a>
+  <ul class="nav-center">
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#routine">Routines</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#quiz">Skin Quiz</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#products" class="nav-btn">Shop SPF</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <div class="hero-eyebrow-text">America's #1 SPF Resource</div>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="outline-text">Protect</span>
+    <em>Every Skin</em>
+    Beautifully.
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Dermatologist-backed sunscreen guides, no-white-cast picks, and SPF routines built for every skin tone and type. Find your perfect match this summer.
+    </p>
+    <div class="hero-actions">
+      <a href="#articles" class="hero-cta">Explore Guides</a>
+      <div class="hero-scroll">
+        <div class="scroll-arrow">↓</div>
+        Scroll to discover
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">Sunscreen for Oily Skin <span class="ticker-dot"></span></div>
+    <div class="ticker-item">SPF Morning Routine <span class="ticker-dot"></span></div>
+    <div class="ticker-item">No White Cast SPF <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Sweat Proof Makeup Summer <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Korean Sunscreen Reviews <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Best SPF for Dark Skin <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Mineral Sunscreen Guide <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Summer Skincare Routine 2025 <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Sunscreen for Oily Skin <span class="ticker-dot"></span></div>
+    <div class="ticker-item">SPF Morning Routine <span class="ticker-dot"></span></div>
+    <div class="ticker-item">No White Cast SPF <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Sweat Proof Makeup Summer <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Korean Sunscreen Reviews <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Best SPF for Dark Skin <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Mineral Sunscreen Guide <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Summer Skincare Routine 2025 <span class="ticker-dot"></span></div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar reveal">
+  <div class="trust-item">
+    <div class="trust-num">50+</div>
+    <div class="trust-label">SPF Products Tested</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">4</div>
+    <div class="trust-label">Skin Types Covered</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">100%</div>
+    <div class="trust-label">No White Cast Picks</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">2M+</div>
+    <div class="trust-label">Pinterest Saves</div>
+  </div>
+</div>
+
+<!-- CATEGORY MARQUEE -->
+<section class="categories-marquee">
+  <div class="marquee-title reveal">
+    <h2>Explore Every <em>SPF Category</em></h2>
+  </div>
+  <div style="overflow:hidden; margin-bottom:12px;">
+    <div class="marquee-row">
+      <div class="marquee-tag active">Sunscreen for Oily Skin</div>
+      <div class="marquee-tag">SPF Morning Routine</div>
+      <div class="marquee-tag">No White Cast</div>
+      <div class="marquee-tag">Korean Sunscreen</div>
+      <div class="marquee-tag">Mineral SPF</div>
+      <div class="marquee-tag">Tinted Sunscreen</div>
+      <div class="marquee-tag">Reef Safe SPF</div>
+      <div class="marquee-tag">SPF for Men</div>
+      <div class="marquee-tag active">Sunscreen for Oily Skin</div>
+      <div class="marquee-tag">SPF Morning Routine</div>
+      <div class="marquee-tag">No White Cast</div>
+      <div class="marquee-tag">Korean Sunscreen</div>
+      <div class="marquee-tag">Mineral SPF</div>
+      <div class="marquee-tag">Tinted Sunscreen</div>
+      <div class="marquee-tag">Reef Safe SPF</div>
+      <div class="marquee-tag">SPF for Men</div>
+    </div>
+  </div>
+  <div style="overflow:hidden;">
+    <div class="marquee-row reverse">
+      <div class="marquee-tag">Sweat Proof Makeup</div>
+      <div class="marquee-tag active">Summer Skin Glow</div>
+      <div class="marquee-tag">Sunscreen for Kids</div>
+      <div class="marquee-tag">SPF Under Foundation</div>
+      <div class="marquee-tag">Dry Skin SPF</div>
+      <div class="marquee-tag">Sensitive Skin Sun Care</div>
+      <div class="marquee-tag">SPF Reapplication</div>
+      <div class="marquee-tag">Daily Sun Protection</div>
+      <div class="marquee-tag">Sweat Proof Makeup</div>
+      <div class="marquee-tag active">Summer Skin Glow</div>
+      <div class="marquee-tag">Sunscreen for Kids</div>
+      <div class="marquee-tag">SPF Under Foundation</div>
+      <div class="marquee-tag">Dry Skin SPF</div>
+      <div class="marquee-tag">Sensitive Skin Sun Care</div>
+      <div class="marquee-tag">SPF Reapplication</div>
+      <div class="marquee-tag">Daily Sun Protection</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED ARTICLES -->
+<section class="featured" id="articles">
+  <div class="section-header reveal">
+    <div class="section-header-left">
+      <div class="section-eyebrow">Latest Guides</div>
+      <h2 class="section-title">Expert <em>SPF Guides</em><br>For Every Skin Type</h2>
+    </div>
+    <a href="#" class="view-all">View All Articles →</a>
+  </div>
+  <div class="articles-grid reveal">
+    <div class="article-card large">
+      <div class="article-img">
+        <div class="article-img-inner img-bg-1">☀️</div>
+        <div class="article-cat-badge">Featured Guide</div>
+      </div>
+      <div class="article-body">
+        <div class="article-meta">Oily Skin · 8 Min Read</div>
+        <div class="article-title">The Ultimate Sunscreen Guide for Oily Skin: No Grease, No White Cast, Just Protection</div>
+        <p class="article-excerpt">We tested 24 sunscreens on oily and combination skin over 90 days. Here's what actually works — and what's just marketing hype. From Korean gel formulas to drugstore heroes under $20.</p>
+      </div>
+      <div class="article-footer">
+        <a href="spf-morning-routine.html" class="article-read">Read Guide →</a>
+        <span class="article-time">8 min read</span>
+      </div>
+    </div>
+    <div class="article-card">
+      <div class="article-img">
+        <div class="article-img-inner img-bg-2">🌸</div>
+        <div class="article-cat-badge">Routine</div>
+      </div>
+      <div class="article-body">
+        <div class="article-meta">SPF Routine · 5 Min</div>
+        <div class="article-title">5-Step SPF Morning Routine Dermatologists Actually Use</div>
+        <p class="article-excerpt">The exact order matters more than the products.</p>
+      </div>
+      <div class="article-footer">
+        <a href="spf-morning-routine.html" class="article-read">Read →</a>
+        <span class="article-time">5 min</span>
+      </div>
+    </div>
+    <div class="article-card">
+      <div class="article-img">
+        <div class="article-img-inner img-bg-3">🌿</div>
+        <div class="article-cat-badge">Dark Skin</div>
+      </div>
+      <div class="article-body">
+        <div class="article-meta">No White Cast · 6 Min</div>
+        <div class="article-title">Best Sunscreens for Dark Skin Tones That Actually Disappear</div>
+        <p class="article-excerpt">The tinted SPF picks that US dermatologists love.</p>
+      </div>
+      <div class="article-footer">
+        <a href="#" class="article-read">Read →</a>
+        <span class="article-time">6 min</span>
+      </div>
+    </div>
+    <div class="article-card">
+      <div class="article-img">
+        <div class="article-img-inner img-bg-4">💛</div>
+        <div class="article-cat-badge">Korean SPF</div>
+      </div>
+      <div class="article-body">
+        <div class="article-meta">K-Beauty · 7 Min</div>
+        <div class="article-title">Korean Sunscreen vs American SPF: Which One Wins?</div>
+        <p class="article-excerpt">The honest comparison US skincare lovers have been asking for.</p>
+      </div>
+      <div class="article-footer">
+        <a href="#" class="article-read">Read →</a>
+        <span class="article-time">7 min</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKIN QUIZ BANNER -->
+<div class="quiz-banner" id="quiz">
+  <div>
+    <div class="quiz-tag">Find Your Match</div>
+    <h2 class="quiz-title">Not Sure Which<br><em>SPF Is Right</em><br>For You?</h2>
+    <p class="quiz-desc">Answer 4 quick questions and we'll match you with the perfect sunscreen for your skin type, tone, and lifestyle. 100% free — takes 60 seconds.</p>
+    <a href="#" class="btn-quiz">Take the Skin Quiz →</a>
+  </div>
+  <div class="quiz-options">
+    <div class="quiz-option">
+      <span class="quiz-option-icon">💧</span>
+      <div class="quiz-option-name">Oily Skin</div>
+      <div class="quiz-option-desc">Shiny by noon, clogged pores</div>
+    </div>
+    <div class="quiz-option">
+      <span class="quiz-option-icon">🌸</span>
+      <div class="quiz-option-name">Dry Skin</div>
+      <div class="quiz-option-desc">Tight, flaky, needs moisture</div>
+    </div>
+    <div class="quiz-option">
+      <span class="quiz-option-icon">🌿</span>
+      <div class="quiz-option-name">Sensitive</div>
+      <div class="quiz-option-desc">Reacts easily, redness prone</div>
+    </div>
+    <div class="quiz-option">
+      <span class="quiz-option-icon">✨</span>
+      <div class="quiz-option-name">Combination</div>
+      <div class="quiz-option-desc">Oily T-zone, dry cheeks</div>
+    </div>
+  </div>
+</div>
+
+<!-- BEST SELLERS -->
+<section class="bestsellers" id="products">
+  <div class="section-header reveal">
+    <div class="section-header-left">
+      <div class="section-eyebrow">Top Rated</div>
+      <h2 class="section-title">Our <em>Best SPF</em><br>Recommendations</h2>
+    </div>
+    <a href="#" class="view-all">All Products →</a>
+  </div>
+  <div class="products-scroll reveal">
+    <div class="product-card">
+      <div class="product-img-area p-img-1">
+        <div class="p-badge badge-hot">🔥 Best Seller</div>
+        ☀️
+        <div class="p-spf-circle">
+          <div class="p-spf-num">46</div>
+          <div class="p-spf-txt">SPF</div>
+        </div>
+      </div>
+      <div class="p-info">
+        <div class="p-cat">Oily · Tinted</div>
+        <div class="p-name">EltaMD UV Clear Tinted</div>
+        <p class="p-desc">Niacinamide-packed, oil-free, zero white cast. Derm #1 pick in the US.</p>
+        <div class="p-footer">
+          <div class="p-stars">★★★★★</div>
+          <a href="#" class="p-link">Shop →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area p-img-2">
+        <div class="p-badge badge-new">✨ K-Beauty</div>
+        🌸
+        <div class="p-spf-circle">
+          <div class="p-spf-num">50+</div>
+          <div class="p-spf-txt">SPF</div>
+        </div>
+      </div>
+      <div class="p-info">
+        <div class="p-cat">All Skin · No Cast</div>
+        <div class="p-name">Beauty of Joseon Relief Sun</div>
+        <p class="p-desc">The cult Korean SPF. Invisible on all skin tones. Blurs pores instantly.</p>
+        <div class="p-footer">
+          <div class="p-stars">★★★★★</div>
+          <a href="#" class="p-link">Shop →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area p-img-3">
+        <div class="p-badge badge-top">🌿 Sensitive</div>
+        🌿
+        <div class="p-spf-circle">
+          <div class="p-spf-num">30</div>
+          <div class="p-spf-txt">SPF</div>
+        </div>
+      </div>
+      <div class="p-info">
+        <div class="p-cat">Sensitive · Mineral</div>
+        <div class="p-name">CeraVe Hydrating Mineral</div>
+        <p class="p-desc">100% mineral, reef-safe, ceramides. Fragrance-free for reactive skin.</p>
+        <div class="p-footer">
+          <div class="p-stars">★★★★☆</div>
+          <a href="#" class="p-link">Shop →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-area p-img-4">
+        <div class="p-badge badge-pick">💛 Editor Pick</div>
+        💛
+        <div class="p-spf-circle">
+          <div class="p-spf-num">40</div>
+          <div class="p-spf-txt">SPF</div>
+        </div>
+      </div>
+      <div class="p-info">
+        <div class="p-cat">Glow · Daily</div>
+        <div class="p-name">Supergoop! Unseen Sunscreen</div>
+        <p class="p-desc">Makeup-gripping, gel-like texture. The "primer" SPF that US beauty editors swear by.</p>
+        <div class="p-footer">
+          <div class="p-stars">★★★★★</div>
+          <a href="#" class="p-link">Shop →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL STRIP -->
+<section class="editorial">
+  <div class="editorial-left">
+    <div class="editorial-quote">
+      "The best anti-aging product is sunscreen. Apply it <em>every morning</em>, rain or shine — your future skin will thank you."
+    </div>
+    <div class="editorial-attr">Dermatologist-backed philosophy</div>
+  </div>
+  <div class="editorial-right">
+    <div class="editorial-stat">
+      <div class="e-stat-num">90%</div>
+      <div class="e-stat-label">Of visible skin aging is caused by sun exposure — all preventable with daily SPF use.</div>
+    </div>
+    <div class="editorial-stat">
+      <div class="e-stat-num">2hrs</div>
+      <div class="e-stat-label">Maximum time before sunscreen needs reapplication, even on cloudy days indoors.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE PREVIEW -->
+<section class="routine-preview" id="routine">
+  <div class="section-header reveal">
+    <div class="section-header-left">
+      <div class="section-eyebrow">Daily Routine</div>
+      <h2 class="section-title">The 5-Step <em>SPF Morning</em><br>Routine at a Glance</h2>
+    </div>
+    <a href="spf-morning-routine.html" class="view-all">Full Guide →</a>
+  </div>
+  <div class="routine-cards reveal">
+    <div class="r-card">
+      <div class="r-num">Step 01</div>
+      <div class="r-icon-circle">🧼</div>
+      <div class="r-title">Cleanser</div>
+      <p class="r-desc">pH-balanced, gentle, non-stripping formula.</p>
+    </div>
+    <div class="r-card">
+      <div class="r-num">Step 02</div>
+      <div class="r-icon-circle">💧</div>
+      <div class="r-title">Toner</div>
+      <p class="r-desc">Niacinamide or hyaluronic acid base.</p>
+    </div>
+    <div class="r-card">
+      <div class="r-num">Step 03</div>
+      <div class="r-icon-circle">✨</div>
+      <div class="r-title">Vitamin C</div>
+      <p class="r-desc">Boosts SPF protection by 8x.</p>
+    </div>
+    <div class="r-card">
+      <div class="r-num">Step 04</div>
+      <div class="r-icon-circle">🫧</div>
+      <div class="r-title">Moisturizer</div>
+      <p class="r-desc">Lightweight, non-comedogenic formula.</p>
+    </div>
+    <div class="r-card">
+      <div class="r-num">Step 05</div>
+      <div class="r-icon-circle">☀️</div>
+      <div class="r-title">Sunscreen</div>
+      <p class="r-desc">Always last. SPF 50. Nickel-sized amount.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-bg"></div>
+  <div class="nl-eyebrow reveal">Weekly SPF Digest</div>
+  <h2 class="nl-title reveal">Get the Best <em>Sunscreen Picks</em><br>In Your Inbox</h2>
+  <p class="nl-sub reveal">New reviews, seasonal guides, and exclusive SPF deals — every Sunday morning. Join 40,000+ glow-focused readers.</p>
+  <form class="nl-form reveal" onsubmit="return false;">
+    <input type="email" class="nl-input" placeholder="your@email.com">
+    <button class="nl-btn">Subscribe</button>
+  </form>
+  <p class="nl-privacy reveal">No spam. Unsubscribe anytime. We respect your inbox.</p>
+</section>
+
+<!-- PINTEREST FEED -->
+<section class="feed-section">
+  <div class="feed-title reveal">Follow us on <strong>@GlowShield</strong> on Pinterest</div>
+  <div class="feed-grid">
+    <div class="feed-item fi-1">☀️</div>
+    <div class="feed-item fi-2">🌸</div>
+    <div class="feed-item fi-3">🌿</div>
+    <div class="feed-item fi-4">💛</div>
+    <div class="feed-item fi-5">✨</div>
+    <div class="feed-item fi-6">🧴</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="footer-logo">Glow<span>Shield</span></a>
+      <p class="footer-about">Your trusted guide for SPF routines, sunscreen reviews, and summer skincare. Built for US audiences who want protected, glowing skin without the guesswork.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn" title="Pinterest">📌</a>
+        <a href="#" class="social-btn" title="Instagram">📷</a>
+        <a href="#" class="social-btn" title="TikTok">🎵</a>
+        <a href="#" class="social-btn" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Routines</h4>
+      <ul>
+        <li><a href="spf-morning-routine.html">SPF Morning Routine</a></li>
+        <li><a href="#">Oily Skin Guide</a></li>
+        <li><a href="#">Dry Skin SPF</a></li>
+        <li><a href="#">Sensitive Skin</a></li>
+        <li><a href="#">Men's Routine</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Reviews</h4>
+      <ul>
+        <li><a href="#">Korean Sunscreens</a></li>
+        <li><a href="#">Drugstore Picks</a></li>
+        <li><a href="#">Mineral SPF</a></li>
+        <li><a href="#">Tinted Sunscreen</a></li>
+        <li><a href="#">SPF for Kids</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About GlowShield</a></li>
+        <li><a href="#">Affiliate Disclosure</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowShield. All rights reserved.</p>
+    <p class="footer-disclaimer">Some links are affiliate links. We earn a small commission at no extra cost to you. All opinions are our own.</p>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 5 + 'px';
+  cursor.style.top = my - 5 + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx - 18) * 0.12;
+  ry += (my - ry - 18) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .quiz-option, .marquee-tag, .feed-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'scale(2.5)';
+    ring.style.width = '60px';
+    ring.style.height = '60px';
+    ring.style.opacity = '0.2';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'scale(1)';
+    ring.style.width = '36px';
+    ring.style.height = '36px';
+    ring.style.opacity = '0.5';
+  });
+});
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('menuClose').addEventListener('click', closeMobileMenu);
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Staggered card reveals
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const cards = entry.target.querySelectorAll('.product-card, .r-card, .article-card, .quiz-option, .trust-item, .editorial-stat');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, i * 100);
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.products-scroll, .routine-cards, .articles-grid, .quiz-options, .trust-bar, .editorial-right').forEach(container => {
+  container.querySelectorAll('.product-card, .r-card, .article-card, .quiz-option, .trust-item, .editorial-stat').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  });
+  cardObserver.observe(container);
+});
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('.trust-num').forEach(el => {
+    const text = el.textContent;
+    const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+    const suffix = text.replace(/[0-9.]/g, '');
+    if (!isNaN(num)) {
+      let start = 0;
+      const duration = 1800;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = (num < 10 ? (eased * num).toFixed(0) : Math.floor(eased * num)) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  });
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounters(); counterObserver.disconnect(); } });
+}, { threshold: 0.5 });
+const trustBar = document.querySelector('.trust-bar');
+if (trustBar) counterObserver.observe(trustBar);
+</script>
+</body>
+</html>
