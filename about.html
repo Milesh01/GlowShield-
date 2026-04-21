@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us: GlowShield</title>
+<meta name="description" content="Meet the GlowShield team. Built by skincare obsessives who test every SPF product themselves and only recommend what actually works.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6F0;--warm:#FFFDF9;--off:#F2EDE6;--tc:#C8674A;--tc-l:#E8937A;--tc-p:#F5E6DF;--gold:#C9A96E;--gold-l:#E8D5B0;--forest:#3D5A47;--charcoal:#2A2A2A;--gray:#6B6B6B;--lgray:#E8E4DF;--nav:68px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+
+.nav{position:fixed;top:0;width:100%;height:var(--nav);z-index:600;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,60px);transition:all .3s}
+.nav.scrolled{background:rgba(42,42,42,.96);backdrop-filter:blur(20px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,24px);font-weight:600;color:#fff}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:clamp(12px,2vw,32px);align-items:center}
+.nav-links a{color:rgba(255,255,255,.7);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:400;transition:color .3s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--tc)!important;color:#fff!important;padding:8px 18px;border-radius:2px;font-size:10px!important;letter-spacing:1.6px!important}
+.nav-cta:hover{background:var(--tc-l)!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{width:22px;height:1.5px;background:#fff;display:block;border-radius:2px}
+
+.mob{position:fixed;inset:0;background:var(--charcoal);z-index:590;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.mob.open{opacity:1;pointer-events:all}
+.mob ul{text-align:center}.mob li{margin-bottom:24px}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,40px);font-weight:300;font-style:italic;color:#fff;transition:color .3s}
+.mob a:hover{color:var(--tc-l)}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,.4);font-size:26px;cursor:pointer;padding:8px}
+
+/* HERO — full dark */
+.hero{min-height:min(85vh,680px);background:var(--charcoal);display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(16px,5vw,80px) clamp(48px,6vw,80px);padding-top:var(--nav);position:relative;overflow:hidden}
+.h-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.h-o1{width:min(500px,75vw);height:min(500px,75vw);background:radial-gradient(circle,rgba(200,103,74,.22),transparent 70%);top:-100px;right:-60px;animation:hf 8s ease-in-out infinite}
+.h-o2{width:min(280px,50vw);height:min(280px,50vw);background:radial-gradient(circle,rgba(201,169,110,.14),transparent 70%);bottom:0;left:80px;animation:hf 6s ease-in-out infinite reverse}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px}
+@keyframes hf{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.hero-inner{position:relative;z-index:2;max-width:760px}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,88px);font-weight:300;color:#fff;line-height:1.0;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--tc-l)}
+.hero-sub{font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.6);font-weight:300;line-height:1.8;max-width:520px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:20px}
+.chip{font-size:11px;color:rgba(255,255,255,.4);font-weight:300;display:flex;align-items:center;gap:6px}
+.chip::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--tc);flex-shrink:0}
+
+/* STATS BAR */
+.stats-bar{background:var(--tc);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,50%),1fr));gap:1px;background-color:rgba(255,255,255,.15)}
+.stat-item{background:var(--tc);padding:clamp(20px,2.5vw,32px) clamp(16px,2vw,28px);text-align:center;transition:background .3s}
+.stat-item:hover{background:var(--tc-l)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,52px);font-weight:300;color:#fff;line-height:1}
+.stat-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:500;margin-top:6px}
+
+/* SECTIONS */
+.section{padding:clamp(60px,7vw,100px) clamp(16px,5vw,80px)}
+
+/* MISSION */
+.mission-wrap{max-width:900px;margin:0 auto}
+.mission-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.mission-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.mission-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,60px);font-weight:300;color:var(--charcoal);line-height:1.1;margin-bottom:24px}
+.mission-h em{font-style:italic;color:var(--tc)}
+.mission-p{font-size:clamp(14px,1.8vw,16px);line-height:1.9;color:var(--gray);font-weight:300;max-width:680px;margin-bottom:16px}
+.mission-p strong{color:var(--charcoal);font-weight:500}
+
+/* VALUES GRID */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:1px;background:var(--lgray);margin-top:clamp(40px,5vw,64px)}
+.value-card{background:var(--warm);padding:clamp(28px,3vw,40px);transition:all .3s;position:relative;overflow:hidden}
+.value-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:var(--tc);transition:width .4s}
+.value-card:hover{background:var(--off);transform:translateY(-3px)}
+.value-card:hover::after{width:100%}
+.v-icon{font-size:clamp(28px,3.5vw,36px);margin-bottom:16px;display:block}
+.v-title{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,22px);font-weight:600;color:var(--charcoal);margin-bottom:10px}
+.v-desc{font-size:clamp(12px,1.6vw,13px);color:var(--gray);line-height:1.8;font-weight:300}
+
+/* STORY SECTION */
+.story-section{background:var(--charcoal);padding:clamp(60px,7vw,100px) clamp(16px,5vw,80px)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,80px);max-width:1100px;margin:0 auto;align-items:center}
+@media(max-width:768px){.story-grid{grid-template-columns:1fr}}
+.story-left{}
+.story-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.story-tag::before{content:'';width:20px;height:1px;background:var(--gold)}
+.story-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:#fff;line-height:1.15;margin-bottom:20px}
+.story-h em{font-style:italic;color:var(--tc-l)}
+.story-p{font-size:clamp(13px,1.7vw,15px);line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:14px}
+.story-p strong{color:#fff;font-weight:500}
+.story-right{display:flex;flex-direction:column;gap:16px}
+.story-fact{border:1px solid rgba(255,255,255,.08);padding:clamp(20px,2.5vw,28px);background:rgba(255,255,255,.02);transition:all .3s}
+.story-fact:hover{border-color:var(--tc-l);background:rgba(200,103,74,.06)}
+.sf-num{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--tc-l);line-height:1;margin-bottom:8px}
+.sf-label{font-size:clamp(12px,1.6vw,14px);color:rgba(255,255,255,.55);font-weight:300;line-height:1.6}
+
+/* TEAM SECTION */
+.team-section{padding:clamp(60px,7vw,100px) clamp(16px,5vw,80px);background:var(--off)}
+.section-header{text-align:center;max-width:600px;margin:0 auto clamp(40px,5vw,64px)}
+.sec-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px}
+.sec-eyebrow::before,.sec-eyebrow::after{content:'';width:20px;height:1px;background:var(--gold)}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--charcoal);line-height:1.1}
+.sec-h em{font-style:italic;color:var(--tc)}
+.sec-p{font-size:clamp(13px,1.7vw,15px);color:var(--gray);font-weight:300;line-height:1.8;margin-top:12px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:clamp(16px,2vw,24px);max-width:1100px;margin:0 auto}
+.team-card{background:var(--warm);border:1px solid var(--lgray);padding:clamp(28px,3vw,40px);transition:all .4s;position:relative}
+.team-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.08);transform:translateY(-4px);border-color:var(--gold-l)}
+.team-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--tc),var(--gold))}
+.t-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:16px}
+.ta1{background:linear-gradient(135deg,#F5E6DF,#FFCBA4)}
+.ta2{background:linear-gradient(135deg,#E8F0EC,#C4DCC8)}
+.ta3{background:linear-gradient(135deg,#E8E4F5,#CAC0EC)}
+.t-name{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,24px);font-weight:600;color:var(--charcoal);margin-bottom:4px}
+.t-role{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.t-bio{font-size:clamp(12px,1.6vw,13px);color:var(--gray);line-height:1.8;font-weight:300;margin-bottom:16px}
+.t-tags{display:flex;flex-wrap:wrap;gap:6px}
+.t-tag{padding:4px 10px;background:var(--tc-p);color:var(--tc);font-size:10px;letter-spacing:1px;font-weight:500;border-radius:100px}
+
+/* STANDARDS */
+.standards{padding:clamp(60px,7vw,100px) clamp(16px,5vw,80px);background:var(--cream)}
+.std-wrap{max-width:900px;margin:0 auto}
+.std-list{margin-top:clamp(32px,4vw,48px)}
+.std-item{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start;padding:clamp(20px,2.5vw,28px) 0;border-bottom:1px solid var(--lgray);transition:padding .3s}
+.std-item:last-child{border-bottom:none}
+.std-item:hover{padding-left:8px}
+.std-n{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--tc);line-height:1}
+.std-content{}
+.std-title{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2vw,20px);font-weight:600;color:var(--charcoal);margin-bottom:6px}
+.std-desc{font-size:clamp(12px,1.6vw,13px);color:var(--gray);font-weight:300;line-height:1.75}
+
+/* CTA */
+.about-cta{background:linear-gradient(135deg,var(--tc) 0%,#A0503A 100%);padding:clamp(48px,6vw,80px) clamp(16px,5vw,80px);text-align:center;position:relative;overflow:hidden}
+.about-cta::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4.5vw,52px);font-weight:300;color:#fff;line-height:1.1;margin-bottom:14px;position:relative;z-index:2}
+.cta-h em{font-style:italic}
+.cta-p{font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.75);font-weight:300;max-width:420px;margin:0 auto 28px;line-height:1.7;position:relative;z-index:2}
+.cta-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative;z-index:2}
+.btn-white{background:#fff;color:var(--tc);padding:14px 32px;border-radius:2px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;transition:all .3s;display:inline-block}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.15)}
+.btn-outline{background:transparent;color:#fff;padding:14px 32px;border:1px solid rgba(255,255,255,.5);border-radius:2px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:400;transition:all .3s;display:inline-block}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+footer{background:var(--charcoal);padding:clamp(40px,5vw,60px) clamp(16px,4vw,60px);color:rgba(255,255,255,.5)}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(20px,3vw,48px);margin-bottom:clamp(28px,4vw,44px)}
+@media(max-width:768px){.ft-top{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-top{grid-template-columns:1fr}}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,26px);font-weight:600;color:#fff;display:inline-block;margin-bottom:10px}
+.ft-logo span{color:var(--gold)}
+.ft-about{font-size:13px;line-height:1.8;font-weight:300;max-width:240px;margin-bottom:16px}
+.ft-socs{display:flex;gap:8px}
+.ft-soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.4);transition:all .3s}
+.ft-soc:hover{background:var(--tc);border-color:var(--tc);color:#fff}
+.ft-col h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.ft-col li{margin-bottom:10px}
+.ft-col a{color:rgba(255,255,255,.38);font-size:13px;font-weight:300;transition:color .3s}
+.ft-col a:hover{color:var(--tc-l)}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:11px;font-weight:300}
+.ft-disc{max-width:460px;line-height:1.6;color:rgba(255,255,255,.25)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:767px){.nav-links{display:none}.ham{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="mob" id="mob">
+  <button class="mob-x" id="mobX">✕</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="spf-morning-routine.html">Routines</a></li>
+    <li><a href="oily-skin-sunscreen-guide.html">Guides</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="logo">Glow<span>Shield</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="spf-morning-routine.html">Routines</a>
+    <a href="oily-skin-sunscreen-guide.html">Guides</a>
+    <a href="about.html" style="color:#fff">About</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="h-orb h-o1"></div><div class="h-orb h-o2"></div><div class="h-grid"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Our Story</div>
+    <h1>We Are<br><em>GlowShield</em></h1>
+    <p class="hero-sub">Built by skincare obsessives who were tired of confusing SPF advice. We test every product ourselves and only recommend what actually works on real skin.</p>
+    <div class="hero-meta">
+      <div class="chip">Founded 2025</div>
+      <div class="chip">Based in United States</div>
+      <div class="chip">Independent & Ad-Free</div>
+      <div class="chip">50+ Products Tested</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<!-- <div class="stats-bar"> -->
+  <!-- <div class="stat-item"><div class="stat-num" data-target="50">0</div><div class="stat-lbl">SPF Products Tested</div></div> -->
+  <!-- <div class="stat-item"><div class="stat-num" data-target="8">0</div><div class="stat-lbl">Skin Types Covered</div></div> -->
+  <!-- <div class="stat-item"><div class="stat-num" data-suffix="M+">2</div><div class="stat-lbl">Pinterest Saves</div></div> -->
+  <!-- <div class="stat-item"><div class="stat-num" data-suffix="%">100</div><div class="stat-lbl">Independent Reviews</div></div> -->
+<!-- </div> -->
+
+<!-- MISSION -->
+<section class="section" style="background:var(--cream)">
+  <div class="mission-wrap">
+    <div class="mission-eyebrow reveal">Why We Exist</div>
+    <h2 class="mission-h reveal">Sun protection should be <em>honest, simple,</em><br>and work for every skin.</h2>
+    <p class="mission-p reveal">Finding the right sunscreen is genuinely hard especially if you have oily skin, a deeper skin tone, or sensitive skin that reacts to most formulas. Most SPF content online is either outdated, sponsored without disclosure, or written by people who've never actually tested the products.</p>
+    <p class="mission-p reveal">GlowShield was built to fix that. Every guide, review, and recommendation on this site comes from <strong>real testing on real skin</strong> across different skin tones, types, climates, and conditions. We're obsessive about ingredient transparency, honest about what doesn't work, and dedicated to making sun protection feel effortless for everyone.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<!-- <section style="padding:0 clamp(16px,5vw,80px) clamp(60px,7vw,100px);background:var(--cream)"> -->
+  <!-- <div style="max-width:900px;margin:0 auto"> -->
+    <!-- <div class="mission-eyebrow reveal">Our Principles</div> -->
+    <!-- <h2 class="mission-h reveal" style="margin-bottom:0">What makes us <em>different</em></h2> -->
+  <!-- </div> -->
+  <!-- <div class="values-grid reveal" style="max-width:1100px;margin:0 auto"> -->
+    <!-- <div class="value-card"><span class="v-icon">🔬</span><div class="v-title">Real Testing Only</div><p class="v-desc">Every product is personally tested by at least one team member on real skin, in real conditions. No lab-only, no brand sample bias.</p></div> -->
+    <!-- <div class="value-card"><span class="v-icon">🚫</span><div class="v-title">No Paid Reviews</div><p class="v-desc">Brands cannot pay for positive coverage. Our affiliate earnings fund the site — not sponsored content disguised as editorial.</p></div> -->
+    <!-- <div class="value-card"><span class="v-icon">🌍</span><div class="v-title">Every Skin Tone</div><p class="v-desc">White cast testing on deeper skin tones is mandatory for every pick. We specifically test what mainstream SPF content ignores.</p></div> -->
+    <!-- <div class="value-card"><span class="v-icon">📖</span><div class="v-title">Ingredient Transparency</div><p class="v-desc">We explain what's actually in your sunscreen — including controversial ingredients — and let you make your own informed choice.</p></div> -->
+    <!-- <div class="value-card"><span class="v-icon">🔄</span><div class="v-title">Always Updated</div><p class="v-desc">Formulas change, new products launch, and research evolves. We update our guides regularly so you always get 2026 information.</p></div> -->
+    <!-- <div class="value-card"><span class="v-icon">💰</span><div class="v-title">All Budgets Welcome</div><p class="v-desc">SPF protection shouldn't require a $40 budget. We cover drugstore picks, K-beauty imports, and premium formulas equally.</p></div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<!-- STORY + FACTS -->
+<!-- <section class="story-section"> -->
+  <!-- <div class="story-grid"> -->
+    <!-- <div class="story-left reveal"> -->
+      <!-- <div class="story-tag">The Beginning</div> -->
+      <!-- <h2 class="story-h">From frustration<br>to a <em>trusted</em> resource</h2> -->
+      <!-- <p class="story-p">GlowShield started as a personal blog in 2024 after founder Sarah M. spent six months trying to find a sunscreen that didn't cause breakouts on her oily, acne-prone skin. What she found was that most SPF guides were either <strong>sponsored without disclosure</strong> or written for dry, lighter skin tones only.</p> -->
+      <!-- <p class="story-p">She started testing products herself, documenting results, and sharing them on Pinterest. The response was immediate — within three months, her pins had been saved over 500,000 times. GlowShield was born from that demand for <strong>honest, tested SPF content</strong> that works for everyone.</p> -->
+      <!-- <p class="story-p">Today GlowShield is a full editorial team covering sunscreens, routines, and skincare for all skin types and tones — with over 2 million Pinterest saves and growing.</p> -->
+    <!-- </div> -->
+    <!-- <div class="story-right reveal"> -->
+      <!-- <div class="story-fact"><div class="sf-num">2024</div><div class="sf-label">Founded as a personal SPF testing blog after the founder couldn't find honest sunscreen reviews for oily skin</div></div> -->
+      <!-- <div class="story-fact"><div class="sf-num">500K+</div><div class="sf-label">Pinterest saves in the first 3 months — proving the demand for honest, tested SPF content</div></div> -->
+      <!-- <div class="story-fact"><div class="sf-num">30+</div><div class="sf-label">Products reviewed and ranked before publishing our first official "Best of" guide</div></div> -->
+      <!-- <div class="story-fact"><div class="sf-num">2026</div><div class="sf-label">Expanded to a full team of writers, testers, and a dermatology advisor covering all skin types</div></div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<!-- TEAM -->
+<!-- <section class="team-section"> -->
+  <!-- <div class="section-header reveal"> -->
+    <!-- <div class="sec-eyebrow">The People</div> -->
+    <!-- <h2 class="sec-h">Meet the <em>GlowShield Team</em></h2> -->
+    <!-- <p class="sec-p">A small, dedicated team of skincare writers, researchers, and testers based across the United States.</p> -->
+  <!-- </div> -->
+  <!-- <div class="team-grid"> -->
+    <!-- <div class="team-card reveal"> -->
+      <!-- <div class="t-avatar ta1">☀️</div> -->
+      <!-- <div class="t-name">Sarah M.</div> -->
+      <!-- <div class="t-role">Founder & Lead Editor</div> -->
+      <!-- <p class="t-bio">10 years in skincare writing. Former beauty editor. Oily skin survivor who tested 200+ sunscreens. Built GlowShield because she was tired of SPF guides that ignored oily and melanin-rich skin.</p> -->
+      <!-- <div class="t-tags"><span class="t-tag">Oily Skin</span><span class="t-tag">SPF Expert</span><span class="t-tag">Editorial</span></div> -->
+    <!-- </div> -->
+    <!-- <div class="team-card reveal"> -->
+      <!-- <div class="t-avatar ta2">🌿</div> -->
+      <!-- <div class="t-name">Dr. Jamie L.</div> -->
+      <!-- <div class="t-role">Skincare Advisor</div> -->
+      <!-- <p class="t-bio">Board-certified esthetician with 8 years of clinical experience. Reviews every guide for ingredient accuracy and safety. Specializes in sensitive and acne-prone skin protocols.</p> -->
+      <!-- <div class="t-tags"><span class="t-tag">Sensitive Skin</span><span class="t-tag">Ingredients</span><span class="t-tag">Clinical</span></div> -->
+    <!-- </div> -->
+    <!-- <div class="team-card reveal"> -->
+      <!-- <div class="t-avatar ta3">✨</div> -->
+      <!-- <div class="t-name">Maya R.</div> -->
+      <!-- <div class="t-role">Product Tester & Writer</div> -->
+      <!-- <p class="t-bio">Deep skin tone tester ensuring every recommendation works for melanin-rich skin without white cast. Based in Atlanta. Tests in real Southern heat and humidity year-round.</p> -->
+      <!-- <div class="t-tags"><span class="t-tag">Dark Skin</span><span class="t-tag">No White Cast</span><span class="t-tag">Reviews</span></div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<!-- STANDARDS -->
+<section class="standards">
+  <div class="std-wrap">
+    <div class="mission-eyebrow reveal">How We Work</div>
+    <h2 class="mission-h reveal">Our editorial <em>standards</em></h2>
+    <div class="std-list">
+      <div class="std-item reveal"><div class="std-n">01</div><div class="std-content"><div class="std-title">Every product is tested</div><p class="std-desc">We never publish a recommendation without at least one team member having used the product on their own skin across multiple days.</p></div></div>
+      <div class="std-item reveal"><div class="std-n">02</div><div class="std-content"><div class="std-title">Affiliate relationships always disclosed</div><p class="std-desc">Every page with affiliate links displays a clear notice. We don't hide our commercial relationships in tiny footers.</p></div></div>
+      <div class="std-item reveal"><div class="std-n">03</div><div class="std-content"><div class="std-title">No payment for rankings or coverage</div><p class="std-desc">Brands cannot buy their way into our guides. Ranking is determined solely by product performance in our testing.</p></div></div>
+      <div class="std-item reveal"><div class="std-n">04</div><div class="std-content"><div class="std-title">White cast testing is mandatory</div><p class="std-desc">Every SPF recommended on GlowShield is tested on at least two different skin tones including deeper tones. White cast performance is always disclosed.</p></div></div>
+      <div class="std-item reveal"><div class="std-n">05</div><div class="std-content"><div class="std-title">Content is regularly updated</div><p class="std-desc">Formulas change and new products launch. We review and update our guides at least quarterly to ensure accuracy.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <h2 class="cta-h reveal">Ready to find your<br><em>perfect sunscreen?</em></h2>
+  <p class="cta-p reveal">Explore our tested guides and start building a summer skincare routine that actually works for your skin.</p>
+  <div class="cta-buttons reveal">
+    <a href="oily-skin-sunscreen-guide.html" class="btn-white">Oily Skin Guide →</a>
+    <a href="spf-morning-routine.html" class="btn-outline">SPF Morning Routine</a>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-top">
+    <div>
+      <a href="glowshield-home.html" class="ft-logo">Glow<span>Shield</span></a>
+      <p class="ft-about">Your trusted US guide for SPF routines, sunscreen reviews, and summer skincare tested for every skin type.</p>
+      <!-- <div class="ft-socs"><a href="#" class="ft-soc">📌</a><a href="#" class="ft-soc">📷</a><a href="#" class="ft-soc">🎵</a></div> -->
+    </div>
+    <div class="ft-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="spf-morning-routine.html">SPF Routine</a></li><li><a href="oily-skin-sunscreen-guide-2026.html">Guides</a></li></ul></div>
+    <div class="ft-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="glowshield-affiliate.html">Affiliate Disclosure</a></li><li><a href="glowshield-contact.html">Contact</a></li></ul></div>
+    <div class="ft-col"><h4>Follow</h4><ul><li><a href="#">Pinterest</a></li><li><a href="#">Instagram</a></li><li><a href="#">Newsletter</a></li></ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© <script>document.write(new Date().getFullYear())</script>  GlowShield. All rights reserved.</span>
+    <span class="ft-disc">Some links are affiliate links. We earn a small commission at no extra cost to you.</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>40)},{passive:true});
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>document.getElementById('mob').classList.remove('open'));
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');ro.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
+// counter animation
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('[data-target]').forEach(el=>{
+        const target=parseInt(el.dataset.target);
+        const suffix=el.dataset.suffix||'+';
+        let cur=0;const step=target/40;
+        const timer=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=Math.floor(cur)+suffix;if(cur>=target)clearInterval(timer);},40);
+      });
+      co.disconnect();
+    }
+  });
+},{threshold:.5});
+const statsBar=document.querySelector('.stats-bar');
+if(statsBar)co.observe(statsBar);
+</script>
+</body>
+</html>
