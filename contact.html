@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us: GlowShield</title>
+<meta name="description" content="Get in touch with GlowShield. Product questions, brand inquiries, privacy requests, or just say hello — we read every message.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF6F0;--warm:#FFFDF9;--off:#F2EDE6;--tc:#C8674A;--tc-l:#E8937A;--tc-p:#F5E6DF;--gold:#C9A96E;--gold-l:#E8D5B0;--forest:#3D5A47;--charcoal:#2A2A2A;--gray:#6B6B6B;--lgray:#E8E4DF;--nav:68px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+
+.nav{position:fixed;top:0;width:100%;height:var(--nav);z-index:600;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,60px);background:rgba(250,246,240,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,169,110,.18);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,24px);font-weight:600;color:var(--tc)}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:clamp(12px,2vw,32px);align-items:center}
+.nav-links a{color:var(--gray);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:400;transition:color .3s}
+.nav-links a:hover{color:var(--tc)}
+.nav-cta{background:var(--tc)!important;color:#fff!important;padding:8px 18px;border-radius:2px;font-size:10px!important;letter-spacing:1.6px!important}
+.nav-cta:hover{background:var(--charcoal)!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{width:22px;height:1.5px;background:var(--charcoal);display:block;border-radius:2px}
+
+.mob{position:fixed;inset:0;background:var(--charcoal);z-index:590;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.mob.open{opacity:1;pointer-events:all}
+.mob ul{text-align:center}.mob li{margin-bottom:24px}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,40px);font-weight:300;font-style:italic;color:#fff;transition:color .3s}
+.mob a:hover{color:var(--tc-l)}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,.4);font-size:26px;cursor:pointer;padding:8px}
+
+/* HERO - split layout */
+.hero{min-height:min(70vh,560px);display:grid;grid-template-columns:1fr 1fr;margin-top:var(--nav)}
+@media(max-width:768px){.hero{grid-template-columns:1fr;min-height:auto}}
+.hero-left{background:var(--charcoal);padding:clamp(48px,6vw,80px) clamp(20px,4vw,60px);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.h-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.h-o1{width:300px;height:300px;background:radial-gradient(circle,rgba(200,103,74,.2),transparent 70%);top:-60px;right:-60px}
+.h-o2{width:180px;height:180px;background:radial-gradient(circle,rgba(201,169,110,.12),transparent 70%);bottom:-30px;left:20px}
+.hero-content{position:relative;z-index:2}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5.5vw,68px);font-weight:300;color:#fff;line-height:1.05;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--tc-l)}
+.hero-sub{font-size:clamp(13px,1.7vw,15px);color:rgba(255,255,255,.6);font-weight:300;line-height:1.8;margin-bottom:24px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{padding:6px 14px;border:1px solid rgba(255,255,255,.12);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:400;border-radius:2px}
+
+.hero-right{background:var(--tc-p);padding:clamp(40px,5vw,72px) clamp(20px,4vw,56px);display:flex;flex-direction:column;justify-content:center;gap:20px}
+.contact-card{background:#fff;padding:clamp(18px,2.5vw,28px);border:1px solid var(--lgray);transition:all .3s;cursor:default}
+.contact-card:hover{border-color:var(--tc);box-shadow:0 8px 28px rgba(200,103,74,.1);transform:translateX(4px)}
+.cc-row{display:flex;align-items:flex-start;gap:14px}
+.cc-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.cc-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:4px}
+.cc-val{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2vw,18px);font-weight:600;color:var(--charcoal);margin-bottom:4px}
+.cc-note{font-size:11px;color:var(--gray);font-weight:300;line-height:1.5}
+
+/* MAIN CONTENT */
+.contact-body{display:grid;grid-template-columns:1fr 360px;gap:clamp(32px,4vw,60px);max-width:1100px;margin:0 auto;padding:clamp(48px,5vw,80px) clamp(16px,4vw,48px)}
+@media(max-width:900px){.contact-body{grid-template-columns:1fr}}
+.cb-sidebar{display:block}
+@media(max-width:900px){.cb-sidebar{display:none}}
+
+/* FORM */
+.form-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.5vw,36px);font-weight:300;color:var(--charcoal);margin-bottom:8px}
+.form-title em{font-style:italic;color:var(--tc)}
+.form-sub{font-size:clamp(12px,1.6vw,14px);color:var(--gray);font-weight:300;line-height:1.7;margin-bottom:32px}
+
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:500px){.f-row{grid-template-columns:1fr}}
+.f-group{margin-bottom:16px;display:flex;flex-direction:column;gap:6px}
+.f-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--charcoal);font-weight:500}
+.f-input,.f-textarea,.f-select{width:100%;padding:clamp(12px,1.5vw,15px) clamp(14px,1.8vw,18px);border:1px solid var(--lgray);background:var(--warm);font-family:'DM Sans',sans-serif;font-size:clamp(13px,1.6vw,14px);color:var(--charcoal);font-weight:300;outline:none;border-radius:2px;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none}
+.f-input:focus,.f-textarea:focus,.f-select:focus{border-color:var(--tc);box-shadow:0 0 0 3px rgba(200,103,74,.08)}
+.f-input::placeholder,.f-textarea::placeholder{color:rgba(107,107,107,.45)}
+.f-textarea{resize:vertical;min-height:120px;line-height:1.7}
+.f-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C8674A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.f-check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:20px}
+.f-check input{margin-top:3px;accent-color:var(--tc);width:14px;height:14px;flex-shrink:0;cursor:pointer}
+.f-check span{font-size:12px;color:var(--gray);font-weight:300;line-height:1.6}
+.f-submit{background:var(--tc);color:#fff;padding:clamp(14px,1.8vw,17px) clamp(28px,4vw,44px);border:none;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .3s;display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.f-submit:hover{background:var(--charcoal);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.f-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.f-note{font-size:11px;color:var(--gray);font-weight:300;margin-top:12px;line-height:1.6}
+.f-note a{color:var(--tc);border-bottom:1px solid rgba(200,103,74,.3)}
+
+.success-msg{display:none;background:var(--forest);color:#fff;padding:20px 24px;border-radius:2px;font-size:14px;font-weight:300;line-height:1.7;margin-top:16px;align-items:center;gap:12px}
+.success-msg.show{display:flex}
+
+/* CHAR COUNT */
+.char-count{font-size:11px;color:var(--gray);font-weight:300;text-align:right;margin-top:4px}
+
+/* SIDEBAR */
+.sb-sticky{position:sticky;top:calc(var(--nav) + 20px);display:flex;flex-direction:column;gap:16px}
+.sb-card{background:var(--warm);border:1px solid var(--lgray);padding:clamp(20px,2.5vw,28px)}
+.sb-h{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2vw,20px);font-weight:600;color:var(--charcoal);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--lgray);display:flex;align-items:center;gap:8px}
+.sb-h::before{content:'';width:16px;height:2px;background:var(--tc)}
+.sb-card p{font-size:12px;color:var(--gray);font-weight:300;line-height:1.7;margin-bottom:10px}
+.sb-card p:last-child{margin-bottom:0}
+.sb-card strong{color:var(--charcoal);font-weight:500}
+.quick-links li{padding:9px 0;border-bottom:1px solid var(--lgray);display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray);font-weight:300;cursor:pointer;transition:color .3s}
+.quick-links li:last-child{border-bottom:none}
+.quick-links li::before{content:'→';color:var(--tc);font-size:11px;flex-shrink:0}
+.quick-links li:hover{color:var(--tc)}
+.quick-links a{color:inherit;font-size:inherit;font-weight:inherit}
+
+.faq-sb li{padding:10px 0;border-bottom:1px solid var(--lgray)}
+.faq-sb li:last-child{border-bottom:none}
+.faq-sb-q{font-size:12px;font-weight:500;color:var(--charcoal);margin-bottom:4px}
+.faq-sb-a{font-size:11px;color:var(--gray);font-weight:300;line-height:1.6}
+
+/* SOCIAL ROW */
+.social-section{background:var(--charcoal);padding:clamp(48px,5vw,72px) clamp(16px,4vw,60px)}
+.social-inner{max-width:900px;margin:0 auto;text-align:center}
+.social-h{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,44px);font-weight:300;color:#fff;margin-bottom:8px}
+.social-h em{font-style:italic;color:var(--tc-l)}
+.social-sub{font-size:clamp(13px,1.7vw,15px);color:rgba(255,255,255,.55);font-weight:300;margin-bottom:36px;line-height:1.7}
+.social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(180px,100%),1fr));gap:12px;max-width:760px;margin:0 auto}
+.soc-card{border:1px solid rgba(255,255,255,.08);padding:clamp(20px,2.5vw,28px);text-align:center;transition:all .3s;background:rgba(255,255,255,.02)}
+.soc-card:hover{border-color:var(--tc-l);background:rgba(200,103,74,.08);transform:translateY(-3px)}
+.soc-icon{font-size:28px;margin-bottom:8px}
+.soc-name{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2vw,18px);font-weight:600;color:#fff;margin-bottom:4px}
+.soc-handle{font-size:11px;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:12px}
+.soc-btn-sm{display:inline-block;padding:6px 16px;border:1px solid rgba(255,255,255,.2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);border-radius:2px;transition:all .3s}
+.soc-card:hover .soc-btn-sm{border-color:var(--tc-l);color:var(--tc-l)}
+
+footer{background:var(--charcoal);padding:clamp(40px,5vw,60px) clamp(16px,4vw,60px);color:rgba(255,255,255,.5)}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(20px,3vw,48px);margin-bottom:clamp(28px,4vw,44px)}
+@media(max-width:768px){.ft-top{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-top{grid-template-columns:1fr}}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,26px);font-weight:600;color:#fff;display:inline-block;margin-bottom:10px}
+.ft-logo span{color:var(--gold)}
+.ft-about{font-size:13px;line-height:1.8;font-weight:300;max-width:240px;margin-bottom:16px}
+.ft-socs{display:flex;gap:8px}
+.ft-soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.4);transition:all .3s}
+.ft-soc:hover{background:var(--tc);border-color:var(--tc);color:#fff}
+.ft-col h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.ft-col li{margin-bottom:10px}
+.ft-col a{color:rgba(255,255,255,.38);font-size:13px;font-weight:300;transition:color .3s}
+.ft-col a:hover{color:var(--tc-l)}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:11px;font-weight:300}
+.ft-disc{max-width:460px;line-height:1.6;color:rgba(255,255,255,.25)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:767px){.nav-links{display:none}.ham{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="mob" id="mob">
+  <button class="mob-x" id="mobX">✕</button>
+  <ul>
+	<li><a href="index.html">Home</a></li>
+    <li><a href="spf-morning-routine.html">Routines</a></li>
+    <li><a href="oily-skin-sunscreen-guide.html">Guides</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="glowshield-home.html" class="logo">Glow<span>Shield</span></a>
+  <div class="nav-links">
+	<a href="index.html">Home</a>
+    <a href="spf-morning-routine.html">Routines</a>
+    <a href="oily-skin-sunscreen-guide.html">Guides</a>
+    <a href="about.html" style="color:#fff">About</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO SPLIT -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="h-orb h-o1"></div><div class="h-orb h-o2"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Get In Touch</div>
+      <h1>Contact<br><em>GlowShield</em></h1>
+      <p class="hero-sub">Questions, product suggestions, brand partnerships, or just want to share your SPF routine? We read every message personally.</p>
+      <div class="hero-badges">
+        <div class="badge">Replies in 2–3 days</div>
+        <div class="badge">No spam ever</div>
+        <div class="badge">Real humans respond</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="contact-card">
+      <div class="cc-row"><div class="cc-icon">📧</div><div><div class="cc-label">General</div><div class="cc-val">hello@glowshield.com</div><div class="cc-note">Product questions & routine help</div></div></div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-row"><div class="cc-icon">🤝</div><div><div class="cc-label">Brand & PR</div><div class="cc-val">brands@glowshield.com</div><div class="cc-note">Product review submissions only no paid placements</div></div></div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-row"><div class="cc-icon">🔒</div><div><div class="cc-label">Privacy</div><div class="cc-val">privacy@glowshield.com</div><div class="cc-note">Data deletion & GDPR/CCPA requests</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="contact-body">
+  <main>
+    <div class="reveal">
+      <h2 class="form-title">Send Us a <em>Message</em></h2>
+      <p class="form-sub">Fill out the form below and we'll get back to you within 2–3 business days. Fields marked * are required.</p>
+    </div>
+
+    <form id="contactForm" onsubmit="submitForm(event)" class="reveal">
+      <div class="f-row">
+        <div class="f-group">
+          <label class="f-label" for="fname">First Name *</label>
+          <input class="f-input" type="text" id="fname" placeholder="Your first name" required>
+        </div>
+        <div class="f-group">
+          <label class="f-label" for="lname">Last Name</label>
+          <input class="f-input" type="text" id="lname" placeholder="Your last name">
+        </div>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="email">Email Address *</label>
+        <input class="f-input" type="email" id="email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="subject">Topic *</label>
+        <select class="f-select f-input" id="subject" required>
+          <option value="" disabled selected>Select a topic...</option>
+          <option>Product Recommendation Question</option>
+          <option>Skincare Routine Help</option>
+          <option>Brand / PR Inquiry</option>
+          <option>Affiliate Partnership</option>
+          <option>Content Correction</option>
+          <option>Privacy / Data Request</option>
+          <option>Newsletter</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="skintype">Your Skin Type (Optional)</label>
+        <select class="f-select f-input" id="skintype">
+          <option value="" disabled selected>Select your skin type...</option>
+          <option>Oily</option><option>Dry</option><option>Combination</option>
+          <option>Sensitive</option><option>Normal</option><option>Acne-Prone</option>
+        </select>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="msg">Your Message * <span style="color:var(--gray);font-weight:300;letter-spacing:0">(min 20 characters)</span></label>
+        <textarea class="f-textarea" id="msg" placeholder="Tell us what's on your mind. The more detail you share, the better we can help you..." required minlength="20" oninput="updateChar(this)"></textarea>
+        <div class="char-count" id="charCount">0 / 1000</div>
+      </div>
+
+      <label class="f-check">
+        <input type="checkbox" id="newsletter">
+        <span>Subscribe to GlowShield's weekly SPF newsletter  new reviews, seasonal guides, and expert tips. Unsubscribe anytime.</span>
+      </label>
+
+      <button type="submit" class="f-submit" id="submitBtn">Send Message <span>→</span></button>
+      <p class="f-note">We respect your privacy and never share your information. See our <a href="privacy.html">Privacy Policy</a>.</p>
+
+      <div class="success-msg" id="successMsg">
+        <span style="font-size:20px">✓</span>
+        <span>Thank you! Your message has been received. We'll reply within 2–3 business days to the email address you provided.</span>
+      </div>
+    </form>
+  </main>
+
+  <aside class="cb-sidebar">
+    <div class="sb-sticky">
+      <div class="sb-card reveal">
+        <div class="sb-h">Response Times</div>
+        <p><strong>General queries:</strong> 2–3 business days</p>
+        <p><strong>Brand / PR:</strong> 3–5 business days</p>
+        <p><strong>Privacy requests:</strong> 5 business days</p>
+        <p style="color:var(--tc);font-weight:500;font-size:11px;margin-top:8px">We respond to every message personally.</p>
+      </div>
+
+      <div class="sb-card reveal">
+        <div class="sb-h">Quick Links</div>
+        <ul class="quick-links">
+          <li><a href="spf-morning-routine.html">SPF Morning Routine</a></li>
+          <li><a href="oily-skin-sunscreen-guide.html">Oily Skin Guide</a></li>
+          <li><a href="affiliate.html">Affiliate Disclosure</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="about.html">About GlowShield</a></li>
+        </ul>
+      </div>
+
+      <div class="sb-card reveal">
+        <div class="sb-h">Common Questions</div>
+        <ul class="faq-sb">
+          <li><div class="faq-sb-q">Can brands submit products for review?</div><div class="faq-sb-a">Yes, email brands@glowshield.com. We test everything ourselves no guaranteed coverage.</div></li>
+          <li><div class="faq-sb-q">Can I request deletion of my data?</div><div class="faq-sb-a">Yes. Email privacy@glowshield.com with "DATA DELETE" in subject.</div></li>
+          <li><div class="faq-sb-q">Do you accept guest posts?</div><div class="faq-sb-a">Currently not accepting guest submissions. Check back in 2026 Q3.</div></li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- SOCIAL -->
+<!-- <section class="social-section"> -->
+  <!-- <div class="social-inner reveal"> -->
+    <!-- <h2 class="social-h">Follow <em>@GlowShield</em></h2> -->
+    <!-- <p class="social-sub">Daily SPF tips, no-white-cast picks, and summer skincare content across all platforms.</p> -->
+    <!-- <div class="social-grid"> -->
+      <!-- <div class="soc-card"><div class="soc-icon">📌</div><div class="soc-name">Pinterest</div><div class="soc-handle">@GlowShield</div><a href="#" class="soc-btn-sm">Follow</a></div> -->
+      <!-- <div class="soc-card"><div class="soc-icon">📷</div><div class="soc-name">Instagram</div><div class="soc-handle">@GlowShield</div><a href="#" class="soc-btn-sm">Follow</a></div> -->
+      <!-- <div class="soc-card"><div class="soc-icon">🎵</div><div class="soc-name">TikTok</div><div class="soc-handle">@GlowShield</div><a href="#" class="soc-btn-sm">Follow</a></div> -->
+      <!-- <div class="soc-card"><div class="soc-icon">▶️</div><div class="soc-name">YouTube</div><div class="soc-handle">GlowShield</div><a href="#" class="soc-btn-sm">Subscribe</a></div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<footer>
+  <div class="ft-top">
+    <div>
+      <a href="glowshield-home.html" class="ft-logo">Glow<span>Shield</span></a>
+      <p class="ft-about">Your trusted US guide for SPF routines, sunscreen reviews, and summer skincare tested for every skin type.</p>
+      <!-- <div class="ft-socs"><a href="#" class="ft-soc">📌</a><a href="#" class="ft-soc">📷</a><a href="#" class="ft-soc">🎵</a></div> -->
+    </div>
+    <div class="ft-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="spf-morning-routine.html">SPF Routine</a></li><li><a href="oily-skin-sunscreen-guide.html">Guides</a></li></ul></div>
+    <div class="ft-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="affiliate.html">Affiliate Disclosure</a></li><li><a href="about.html">About Us</a></li></ul></div>
+    <div class="ft-col"><h4>Follow</h4><ul><li><a href="#">Pinterest</a></li><li><a href="#">Instagram</a></li><li><a href="#">Newsletter</a></li></ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© <script>document.write(new Date().getFullYear())</script> GlowShield. All rights reserved.</span>
+    <span class="ft-disc">Some links are affiliate links. We earn a small commission at no extra cost to you.</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>40)},{passive:true});
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>document.getElementById('mob').classList.remove('open'));
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');ro.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
+function updateChar(el){const c=el.value.length;document.getElementById('charCount').textContent=c+' / 1000';if(c>1000)el.value=el.value.slice(0,1000);}
+function submitForm(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  btn.textContent='Sending...';btn.disabled=true;
+  setTimeout(()=>{
+    document.getElementById('successMsg').classList.add('show');
+    btn.textContent='✓ Sent!';
+    e.target.reset();
+    document.getElementById('charCount').textContent='0 / 1000';
+  },1400);
+}
+</script>
+</body>
+</html>
