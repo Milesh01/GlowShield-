@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPF Morning Routine: Your Daily Sun Protection Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-white: #FFFDF9;
+    --terracotta: #C8674A;
+    --terracotta-light: #E8937A;
+    --terracotta-pale: #F5E6DF;
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --forest: #3D5A47;
+    --charcoal: #2A2A2A;
+    --mid-gray: #6B6B6B;
+    --light-gray: #E8E4DF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 246, 240, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--terracotta);
+    letter-spacing: 0.5px;
+  }
+	.nav-logo a{
+	text-decoration: none;
+	color: var(--terracotta);
+	}
+  .nav-logo span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid-gray);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+
+  .nav-cta {
+    background: var(--terracotta);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-size: 12px !important;
+    letter-spacing: 1.5px !important;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--terracotta-light) !important; color: white !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 1.5px;
+    background: var(--charcoal);
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    max-width: 420px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: white;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--charcoal);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    padding: 16px 36px;
+    border: 1px solid var(--light-gray);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 40%, var(--terracotta-pale) 0%, var(--gold-light) 50%, transparent 70%);
+    opacity: 0.6;
+    animation: pulse-slow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .sun-icon {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 32px;
+    position: relative;
+    animation: rotate-slow 20s linear infinite;
+  }
+
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 4px;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--charcoal);
+    color: var(--gold-light);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 25s linear infinite;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-sep {
+    margin: 0 32px;
+    color: var(--terracotta);
+  }
+
+  /* INTRO SECTION */
+  .intro {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    height: fit-content;
+  }
+
+  .intro-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: var(--charcoal);
+  }
+
+  .intro-content h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .intro-content p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--mid-gray);
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  /* ROUTINE STEPS */
+  .routine {
+    padding: 100px 80px;
+    background: var(--warm-white);
+  }
+
+  .routine-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .routine-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+
+  .routine-header h2 em { font-style: italic; color: var(--terracotta); }
+
+  .routine-header p {
+    font-size: 15px;
+    color: var(--mid-gray);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--light-gray);
+  }
+
+  .step-card {
+    background: var(--warm-white);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--terracotta);
+    transition: width 0.4s ease;
+  }
+
+  .step-card:hover::before { width: 100%; }
+  .step-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(200, 103, 74, 0.1); }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--terracotta-pale);
+    line-height: 1;
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    transition: color 0.4s;
+  }
+
+  .step-card:hover .step-num { color: rgba(200, 103, 74, 0.15); }
+
+  .step-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    font-weight: 300;
+  }
+
+  .step-tip {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: var(--terracotta-pale);
+    border-left: 2px solid var(--terracotta);
+    font-size: 12px;
+    color: var(--terracotta);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  /* SKIN TYPES */
+  .skin-types {
+    padding: 100px 80px;
+    background: var(--charcoal);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skin-types::before {
+    content: 'SPF';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 300px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.02);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .skin-types-header {
+    margin-bottom: 64px;
+  }
+
+  .skin-types-header .section-label { color: var(--gold); }
+
+  .skin-types-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: white;
+    margin-top: 16px;
+  }
+
+  .skin-types-header h2 em { font-style: italic; color: var(--terracotta-light); }
+
+  .skin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .skin-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .skin-card:hover {
+    border-color: var(--terracotta-light);
+    background: rgba(200, 103, 74, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .skin-type-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .skin-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 3px 10px;
+    margin-bottom: 20px;
+    border-radius: 1px;
+  }
+
+  .skin-rec {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+  }
+
+  .skin-rec strong {
+    color: var(--terracotta-light);
+    font-weight: 500;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 100px 80px;
+    background: var(--cream);
+  }
+
+  .products-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .products-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+  }
+
+  .products-header h2 em { font-style: italic; color: var(--terracotta); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .product-card {
+    background: var(--warm-white);
+    border: 1px solid var(--light-gray);
+    overflow: hidden;
+    transition: all 0.4s;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.08);
+    border-color: var(--gold-light);
+  }
+
+  .product-img {
+    height: 200px;
+    <!-- display: flex; -->
+    <!-- align-items: center; -->
+    <!-- justify-content: center; -->
+    font-size: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+	.product-img img{
+	height: 100%;
+	width: 100%;
+	object-fit: cover;}
+  .product-img-1 { background: linear-gradient(135deg, #F5E6DF, #FFCBA4); }
+  .product-img-2 { background: linear-gradient(135deg, #E8E4F5, #D4C9F0); }
+  .product-img-3 { background: linear-gradient(135deg, #E4F0E8, #C9E8D4); }
+
+  .product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--terracotta);
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 1px;
+  }
+
+  .product-info {
+    padding: 28px;
+  }
+
+  .product-category {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: var(--mid-gray);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+  }
+
+  .product-spf {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--terracotta);
+  }
+
+  .product-spf span {
+    font-size: 12px;
+    color: var(--mid-gray);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+
+  .product-link {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.3s;
+  }
+
+  .product-link:hover { gap: 12px; }
+
+  /* FAQ */
+  .faq {
+    padding: 100px 80px;
+    background: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .faq-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--charcoal);
+    position: sticky;
+    top: 120px;
+  }
+
+  .faq-left h2 em { font-style: italic; color: var(--terracotta); }
+
+  .faq-item {
+    border-bottom: 1px solid var(--light-gray);
+    padding: 32px 0;
+    cursor: pointer;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .faq-q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.3;
+  }
+
+  .faq-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--terracotta);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+
+  .faq-item.open .faq-icon {
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    font-weight: 300;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-top: 16px;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    padding: 100px 80px;
+    background: linear-gradient(135deg, var(--terracotta) 0%, #A0503A 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .cta-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .cta-banner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-banner h2 em { font-style: italic; }
+
+  .cta-banner p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--terracotta);
+    padding: 18px 48px;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.6);
+    padding: 60px 80px 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--terracotta-light);
+    margin-bottom: 16px;
+  }
+
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.3s;
+  }
+
+  .footer-col a:hover { color: var(--terracotta-light); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-bottom p { font-size: 13px; font-weight: 300; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.2s; }
+  .fade-up-3 { animation-delay: 0.3s; }
+  .fade-up-4 { animation-delay: 0.4s; }
+
+  /* MOBILE */
+  @media (max-width: 1024px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { padding: 40px 24px 60px; min-height: 300px; }
+    .hero-bg-circle { width: 300px; height: 300px; }
+    .sun-icon { width: 120px; height: 120px; }
+
+    .intro { grid-template-columns: 1fr; padding: 60px 24px; gap: 24px; }
+    .section-label { writing-mode: horizontal-tb; transform: none; }
+
+    .routine { padding: 60px 24px; }
+    .steps-grid { grid-template-columns: 1fr; gap: 2px; }
+
+    .skin-types { padding: 60px 24px; }
+    .skin-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .products { padding: 60px 24px; }
+    .products-grid { grid-template-columns: 1fr; gap: 24px; }
+
+    .faq { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    .faq-left h2 { position: static; }
+
+    .cta-banner { padding: 60px 24px; }
+
+    footer { padding: 60px 24px 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 42px; }
+    .hero-stats { gap: 24px; }
+    .skin-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .products-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+  <a href="index.html">Glow<span>Shield</span></a></div>
+  <ul class="nav-links">
+    <li><a href="#routine">Routine</a></li>
+    <li><a href="#skin-types">Skin Types</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#products" class="nav-cta">Shop SPF</a></li>
+  </ul>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-up fade-up-1">Daily Sun Protection Guide</div>
+    <h1 class="fade-up fade-up-2">
+      Your Perfect<br><em>SPF Morning</em><br>Routine
+    </h1>
+    <p class="hero-subtitle fade-up fade-up-3">
+      Stop guessing which sunscreen works for your skin. Get dermatologist-backed SPF routines tailored to your skin type no white cast, no grease, just protected glowing skin.
+    </p>
+    <div class="hero-buttons fade-up fade-up-4">
+      <a href="#routine" class="btn-primary">Build My Routine</a>
+      <a href="#products" class="btn-secondary">Top SPF Picks</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-visual">
+      <svg class="sun-icon" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="45" fill="#C8674A" opacity="0.9"/>
+        <circle cx="100" cy="100" r="55" stroke="#C9A96E" stroke-width="1" opacity="0.4"/>
+        <circle cx="100" cy="100" r="70" stroke="#C9A96E" stroke-width="0.5" opacity="0.2"/>
+        <line x1="100" y1="10" x2="100" y2="30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="100" y1="170" x2="100" y2="190" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="10" y1="100" x2="30" y2="100" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="170" y1="100" x2="190" y2="100" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="29" y1="29" x2="43" y2="43" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="157" y1="157" x2="171" y2="171" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="171" y1="29" x2="157" y2="43" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <line x1="43" y1="157" x2="29" y2="171" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+        <text x="100" y="107" text-anchor="middle" fill="white" font-family="Cormorant Garamond" font-size="18" font-weight="600">SPF</text>
+      </svg>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">SPF Reviews</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Skin Types</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">No White Cast</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    SPF 50 Daily Routine <span class="ticker-sep">✦</span> No White Cast Sunscreen <span class="ticker-sep">✦</span> Oily Skin SPF Guide <span class="ticker-sep">✦</span> Sweat Proof Summer Makeup <span class="ticker-sep">✦</span> Mineral vs Chemical SPF <span class="ticker-sep">✦</span> Korean Sunscreen Reviews <span class="ticker-sep">✦</span> Sunscreen Under Foundation <span class="ticker-sep">✦</span> SPF Morning Routine 2025 <span class="ticker-sep">✦</span>
+    SPF 50 Daily Routine <span class="ticker-sep">✦</span> No White Cast Sunscreen <span class="ticker-sep">✦</span> Oily Skin SPF Guide <span class="ticker-sep">✦</span> Sweat Proof Summer Makeup <span class="ticker-sep">✦</span> Mineral vs Chemical SPF <span class="ticker-sep">✦</span> Korean Sunscreen Reviews <span class="ticker-sep">✦</span> Sunscreen Under Foundation <span class="ticker-sep">✦</span> SPF Morning Routine 2025 <span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro" id="about">
+  <div class="section-label">About</div>
+  <div class="intro-content">
+    <h2>Why Your Morning Routine<br>Needs <em>SPF Every Single Day</em></h2>
+    <p>
+      UV rays don't take days off and neither should your sunscreen. Whether it's cloudy, sunny, or you're just sitting by a window, your skin is exposed to aging and damaging UVA and UVB rays. A proper SPF morning routine is the single most effective anti-aging step dermatologists recommend. We cut through the confusion and help you find the perfect formula for your skin type, lifestyle, and budget.
+    </p>
+  </div>
+</section>
+
+<!-- ROUTINE STEPS -->
+<section class="routine" id="routine">
+  <div class="routine-header">
+    <h2>The 5-Step <em>SPF Morning</em> Routine</h2>
+    <p>Follow this dermatologist-approved sequence for all-day sun protection that doesn't mess with your makeup.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <span class="step-num">01</span>
+      <span class="step-icon">🧼</span>
+      <div class="step-title">Gentle Cleanser</div>
+      <p class="step-desc">Start with a pH-balanced, non-stripping cleanser. Avoid harsh soaps that compromise your skin barrier a healthy barrier helps sunscreen absorb better.</p>
+      <div class="step-tip">💡 Pro tip: Lukewarm water only. Hot water strips natural oils.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">02</span>
+      <span class="step-icon">💧</span>
+      <div class="step-title">Lightweight Toner</div>
+      <p class="step-desc">A hydrating toner preps your skin to receive moisture. Look for niacinamide or hyaluronic acid both play well with SPF and reduce pore appearance.</p>
+      <div class="step-tip">💡 Pro tip: Pat, don't rub preserves skin's moisture barrier.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">03</span>
+      <span class="step-icon">✨</span>
+      <div class="step-title">Vitamin C Serum</div>
+      <p class="step-desc">Applied before SPF, Vitamin C boosts your sunscreen's protective power by up to 8x. It neutralizes free radicals that slip past SPF filters.</p>
+      <div class="step-tip">💡 Pro tip: Wait 60 seconds before next step for full absorption.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">04</span>
+      <span class="step-icon">🫧</span>
+      <div class="step-title">Moisturizer</div>
+      <p class="step-desc">Use a lightweight, non-comedogenic moisturizer. For oily skin, gel formulas work best. For dry skin, opt for hyaluronic acid-based creams before SPF.</p>
+      <div class="step-tip">💡 Pro tip: Let it fully absorb before applying sunscreen on top.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">05</span>
+      <span class="step-icon">☀️</span>
+      <div class="step-title">Sunscreen SPF 50</div>
+      <p class="step-desc">Always the last skincare step, before primer and makeup. Apply a nickel-sized amount most people use 25% of what's actually needed for full protection.</p>
+      <div class="step-tip">💡 Pro tip: Reapply every 2 hours if outdoors. Use SPF powder for touch-ups.</div>
+    </div>
+    <div class="step-card" style="background: var(--terracotta); color: white;">
+      <span class="step-num" style="color: rgba(255,255,255,0.15);">✦</span>
+      <span class="step-icon">🔁</span>
+      <div class="step-title" style="color: white;">Reapplication Rule</div>
+      <p class="step-desc" style="color: rgba(255,255,255,0.8);">No SPF lasts all day. Reapply every 2 hours when outdoors, after swimming or heavy sweating. SPF powder sprays make midday reapplication effortless.</p>
+      <div class="step-tip" style="background: rgba(255,255,255,0.15); border-color: white; color: white;">💡 Pro tip: Set a phone reminder your skin will thank you at 40.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKIN TYPES -->
+<section class="skin-types" id="skin-types">
+  <div class="skin-types-header">
+    <div class="section-label">Skin Types</div>
+    <h2>Find Your <em>Perfect SPF Match</em><br>By Skin Type</h2>
+  </div>
+  <div class="skin-grid">
+    <div class="skin-card">
+      <div class="skin-type-name">Oily Skin</div>
+      <div class="skin-badge">Most Searched</div>
+      <p class="skin-rec">Look for <strong>gel-based or water-based</strong> formulas. Key words: oil-free, matte finish, non-comedogenic, SPF 50. <strong>Avoid</strong>: heavy creams, coconut oil base.</p>
+    </div>
+    <div class="skin-card">
+      <div class="skin-type-name">Dry Skin</div>
+      <div class="skin-badge">Hydration First</div>
+      <p class="skin-rec">Choose <strong>cream-based SPF</strong> with added moisturizers. Look for hyaluronic acid, ceramides, or glycerin in the formula for all-day comfort.</p>
+    </div>
+    <div class="skin-card">
+      <div class="skin-type-name">Sensitive Skin</div>
+      <div class="skin-badge">Gentle Formula</div>
+      <p class="skin-rec"><strong>Mineral sunscreen</strong> (zinc oxide or titanium dioxide) is your best friend. Avoid chemical filters like oxybenzone they trigger reactions.</p>
+    </div>
+    <div class="skin-card">
+      <div class="skin-type-name">Dark Skin</div>
+      <div class="skin-badge">No White Cast</div>
+      <p class="skin-rec">Specifically seek out <strong>tinted mineral SPF</strong> or chemical sunscreens labeled "no white cast." Korean SPF brands lead the way in invisible formulas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-label" style="writing-mode:horizontal-tb; transform:none; margin-bottom:12px;">Top Picks</div>
+      <h2>Editor's <em>SPF Picks</em><br>For Every Skin Type</h2>
+    </div>
+    <a href="#" class="btn-secondary">View All Reviews →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img product-img-1">
+        <div class="product-badge">Best Seller</div>
+       <img src="https://ik.imagekit.io/glowshield/EltaMD-UV-SPF-40.jpg" alt="EltaMD UV Clear Tinted"/>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Oily Skin · Matte Finish</div>
+        <div class="product-name">EltaMD UV Clear Tinted</div>
+        <p class="product-desc">Lightweight, oil-free formula with niacinamide. Zero white cast, perfect under makeup. Dermatologist #1 recommended in the US.</p>
+        <div class="product-footer">
+          <div class="product-spf">40 <span>SPF</span></div>
+          <a href="https://amzn.to/4mH0zO0" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-2">
+        <div class="product-badge">K-Beauty Pick</div>
+         <img src="https://ik.imagekit.io/glowshield/Joseon-Relief-Sun.png" alt="Beauty of Joseon Relief Sun"/>
+      </div>
+      <div class="product-info">
+        <div class="product-category">All Skin Types · No White Cast</div>
+        <div class="product-name">Beauty of Joseon Relief Sun</div>
+        <p class="product-desc">The cult Korean SPF that works on every skin tone. Blurs pores, hydrates, and disappears into skin like it was never there.</p>
+        <div class="product-footer">
+          <div class="product-spf">50+ <span>SPF</span></div>
+          <a href="https://amzn.to/48GPlDy" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-3">
+        <div class="product-badge">Sensitive Safe</div>
+        <img src="https://ik.imagekit.io/glowshield/CeraVe-AM-Facial-spf30.png" alt="CeraVe Hydrating Mineral SPF"/>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Sensitive · Mineral Formula</div>
+        <div class="product-name">CeraVe Hydrating Mineral SPF</div>
+        <p class="product-desc">100% mineral sunscreen with ceramides and hyaluronic acid. Fragrance-free, reef-safe, and gentle enough for post-procedure skin.</p>
+        <div class="product-footer">
+          <div class="product-spf">30 <span>SPF</span></div>
+          <a href="https://amzn.to/4mCA7VO" class="product-link">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<!-- <section class="faq" id="faq"> -->
+  <!-- <div class="faq-left"> -->
+    <!-- <h2>Frequently<br>Asked <em>Questions</em></h2> -->
+  <!-- </div> -->
+  <!-- <div class="faq-list"> -->
+    <!-- <div class="faq-item open"> -->
+      <!-- <div class="faq-question" onclick="toggleFaq(this)"> -->
+        <!-- <div class="faq-q-text">Should I apply sunscreen before or after moisturizer?</div> -->
+        <!-- <div class="faq-icon">+</div> -->
+      <!-- </div> -->
+      <!-- <div class="faq-answer">Always apply sunscreen as the last step in your skincare routine, after moisturizer. For chemical sunscreens, apply to bare skin before moisturizer. For mineral sunscreens, after moisturizer is perfect. When in doubt sunscreen goes on last, before primer and makeup.</div> -->
+    <!-- </div> -->
+    <!-- <div class="faq-item"> -->
+      <!-- <div class="faq-question" onclick="toggleFaq(this)"> -->
+        <!-- <div class="faq-q-text">Do I need sunscreen on cloudy days indoors?</div> -->
+        <!-- <div class="faq-icon">+</div> -->
+      <!-- </div> -->
+      <!-- <div class="faq-answer">Yes. Up to 80% of UV rays penetrate clouds. And if you sit near a window indoors, UVA rays (the aging rays) pass right through glass. Daily SPF rain, shine, or home office is the single best anti-aging habit you can build.</div> -->
+    <!-- </div> -->
+    <!-- <div class="faq-item"> -->
+      <!-- <div class="faq-question" onclick="toggleFaq(this)"> -->
+        <!-- <div class="faq-q-text">What SPF number do I actually need?</div> -->
+        <!-- <div class="faq-icon">+</div> -->
+      <!-- </div> -->
+      <!-- <div class="faq-answer">Dermatologists recommend SPF 30 as a daily minimum for most people, and SPF 50 for outdoor activities, beach days, or darker skin tones that need protection from hyperpigmentation. Beyond SPF 50, the added protection is minimal consistent reapplication matters more than a higher number.</div> -->
+    <!-- </div> -->
+    <!-- <div class="faq-item"> -->
+      <!-- <div class="faq-question" onclick="toggleFaq(this)"> -->
+        <!-- <div class="faq-q-text">Why does sunscreen leave a white cast on my skin?</div> -->
+        <!-- <div class="faq-icon">+</div> -->
+      <!-- </div> -->
+      <!-- <div class="faq-answer">White cast is caused by mineral filters (zinc oxide and titanium dioxide) that sit on top of the skin and reflect light. Chemical sunscreens absorb into the skin and generally don't cause white cast. For darker skin tones, look specifically for "tinted mineral" or "invisible finish" formulas Korean SPF brands excel at this.</div> -->
+    <!-- </div> -->
+    <!-- <div class="faq-item"> -->
+      <!-- <div class="faq-question" onclick="toggleFaq(this)"> -->
+        <!-- <div class="faq-q-text">How do I reapply sunscreen over makeup?</div> -->
+        <!-- <div class="faq-icon">+</div> -->
+      <!-- </div> -->
+      <!-- <div class="faq-answer">SPF setting sprays and powder sunscreens are your best option for midday reapplication over makeup. They're mess-free, effective, and won't disturb your foundation. Brands like Supergoop Glowscreen and Brush-On Block SPF 30 are US audience favorites for this exact use case.</div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Start Your <em>SPF Routine</em><br>This Morning</h2>
+  <p>Join thousands of US skincare lovers who've found their perfect sunscreen match. No more white cast, no more guessing.</p>
+  <a href="#products" class="btn-white">Find My Sunscreen →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>GlowShield</h3>
+      <p>Your trusted source for SPF routines, sunscreen reviews, and summer skincare tips tailored for every skin type.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Routines</h4>
+      <ul>
+        <li><a href="spf-morning-routine.html">SPF Morning Routine</a></li>
+        <li><a href="oily-skin-sunscreen-guide.html">Oily Skin Guide</a></li>
+        <li><a href="#">Sensitive Skin SPF</a></li>
+        <li><a href="#">Men's SPF Routine</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Reviews</h4>
+      <ul>
+        <li><a href="#">Korean Sunscreens</a></li>
+        <li><a href="#">Drugstore Picks</a></li>
+        <li><a href="#">Mineral SPF</a></li>
+        <li><a href="#">Tinted Sunscreens</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+	   <li><a href="contact.html">Contact</a></li>
+	  <li><a href="about.html">About Us</a></li>
+	  <li><a href="privacy.html">Privacy Policy</a></li>
+	  <li><a href="affiliate.html">Affiliate Disclosure</a></li>
+	  </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <script>document.write(new Date().getFullYear())</script> GlowShield. All rights reserved.</p>
+    <p>Some links are affiliate links. We earn a small commission at no cost to you.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step-card, .skin-card, .product-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
