@@ -41,7 +41,14 @@
     z-index: 1000;
     opacity: 0.4;
   }
-
+  .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{width:22px;height:1.5px;background:var(--charcoal);display:block;border-radius:2px;transition:all .3s}
+.mob{position:fixed;inset:0;background:var(--charcoal);z-index:590;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.mob.open{opacity:1;pointer-events:all}
+.mob ul{text-align:center} .mob li{margin-bottom:24px}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,40px);font-weight:300;font-style:italic;color:#fff;transition:color .3s}
+.mob a:hover{color:var(--tc-l)}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,.4);font-size:26px;cursor:pointer;padding:8px}
   /* NAVIGATION */
   nav {
     position: fixed;
@@ -103,7 +110,7 @@
 
   .nav-cta:hover { background: var(--terracotta-light) !important; color: white !important; }
 
-  .hamburger {
+  .ham {
     display: none;
     flex-direction: column;
     gap: 5px;
@@ -111,7 +118,7 @@
     padding: 4px;
   }
 
-  .hamburger span {
+  .ham span {
     width: 24px;
     height: 1.5px;
     background: var(--charcoal);
@@ -614,9 +621,9 @@
 
   .product-img {
     height: 200px;
-    <!-- display: flex; -->
+    /* <!-- display: flex; -->
     <!-- align-items: center; -->
-    <!-- justify-content: center; -->
+    <!-- justify-content: center; --> */
     font-size: 64px;
     position: relative;
     overflow: hidden;
@@ -949,7 +956,7 @@
   @media (max-width: 1024px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hamburger { display: flex; }
+    .ham { display: flex; }
 
     .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
     .hero-left { padding: 60px 24px 40px; }
@@ -989,20 +996,32 @@
 </head>
 <body>
 
+  <div class="mob" id="mob">
+  <button class="mob-x" id="mobX">✕</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="spf-morning-routine.html">Routines</a></li>
+    <li><a href="oily-skin-sunscreen-guide-2026.html">Oily Skin</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<div class="pbar" id="pbar"></div>
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
   <a href="index.html">Glow<span>Shield</span></a></div>
   <ul class="nav-links">
     <li><a href="#routine">Routine</a></li>
-    <li><a href="#skin-types">Skin Types</a></li>
+    <li><a href="sensitive-skin-sunscreen-guide-2026.html">Sensitive Skin</a></li>
     <li><a href="#products">Products</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#products" class="nav-cta">Shop SPF</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
   </ul>
-  <div class="hamburger">
+    <button class="ham" id="ham" aria-label="Menu">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1302,11 +1321,15 @@
   </div>
   <div class="footer-bottom">
     <p>© <script>document.write(new Date().getFullYear())</script> GlowShield. All rights reserved.</p>
-    <p>Some links are affiliate links. We earn a small commission at no cost to you.</p>
+     <p class="ft-disc">Some links are affiliate links. We earn a small commission at no extra cost to you. All reviews are independent.</p>
   </div>
 </footer>
 
 <script>
+  // Mobile menu
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>document.getElementById('mob').classList.remove('open'));
+
   function toggleFaq(el) {
     const item = el.closest('.faq-item');
     const isOpen = item.classList.contains('open');
