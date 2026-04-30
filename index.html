@@ -806,46 +806,14 @@ overflow: hidden;
 }
 
 /* ─── INSTAGRAM / PINTEREST FEED ─── */
-.feed-section {
-  padding: 60px 0 0;
-  background: var(--cream);
-  text-align: center;
-}
-.feed-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px; font-weight: 300;
-  color: var(--mid-gray); margin-bottom: 32px;
-  padding: 0 60px;
-}
+.feed-section {  padding: 60px 0 0;  background: var(--cream);  text-align: center;}
+.feed-title {  font-family: 'Cormorant Garamond', serif;  font-size: 28px; font-weight: 300;  color: var(--mid-gray); margin-bottom: 32px;  padding: 0 60px;}
 .feed-title strong { color: var(--terracotta); font-weight: 600; }
-.feed-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 3px;
-}
-.feed-item {
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px; position: relative; overflow: hidden;
-  cursor: none;
-}
-.feed-item::after {
-  content: '☀️ View';
-  position: absolute; inset: 0;
-  background: rgba(200,103,74,0.85);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: white; font-weight: 500;
-  opacity: 0; transition: opacity 0.3s;
-}
-.feed-item:hover::after { opacity: 1; }
-.fi-1 { background: #F5E6DF; }
-.fi-2 { background: #E8F0EC; }
-.fi-3 { background: #F0E8F5; }
-.fi-4 { background: #F5F0E0; }
-.fi-5 { background: #E8F0F5; }
-.fi-6 { background: #F5E8E0; }
+.feed-grid {  display: grid;  grid-template-columns: repeat(6, 1fr);  gap: 3px;}
+.feed-item {  aspect-ratio: 1;  display: flex; align-items: center; justify-content: center;  font-size: 40px; position: relative; overflow: hidden;  cursor: none;}
+.feed-item img {  width: 100%; height: 100%;  object-fit: cover;  transition: transform 0.6s ease;  display: flex; align-items: center; justify-content: center;}
+.feed-item a::after {  content: 'View';  position: absolute; inset: 0;  background: rgba(200, 103, 74, 0.32);  display: flex; align-items: center; justify-content: center;  font-family: 'DM Sans', sans-serif;  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;  color: white; font-weight: 500;  opacity: 0; transition：opacity 0.3s;}
+.feed-item a:hover::after { opacity: 1; }
 
 /* ─── FOOTER ─── */
 footer {
@@ -1009,11 +977,11 @@ footer {
   <ul class="nav-center">
     <li><a href="men-spf-routine.html">Routines</a></li>
     <li><a href="sensitive-skin-sunscreen-guide-2026.html">Sensitive Skin</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="#quiz">Skin Quiz</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#products" class="nav-btn">Shop SPF</a>
+    <a href="contact.html" class="nav-btn">Contact</a>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
@@ -1228,7 +1196,7 @@ footer {
     <div class="quiz-tag">Find Your Match</div>
     <h2 class="quiz-title">Not Sure Which<br><em>SPF Is Right</em><br>For You?</h2>
     <p class="quiz-desc">Answer 4 quick questions and we'll match you with the perfect sunscreen for your skin type, tone, and lifestyle. 100% free takes 60 seconds.</p>
-    <a href="#" class="btn-quiz">Take the Skin Quiz →</a>
+    <a href="spf-skin-quiz.html" class="btn-quiz">Take the Skin Quiz →</a>
   </div>
   <div class="quiz-options">
     <div class="quiz-option">
@@ -1423,12 +1391,12 @@ footer {
 <section class="feed-section">
   <div class="feed-title reveal">Follow us on <strong>@GlowShield</strong> on Pinterest</div>
   <div class="feed-grid">
-    <div class="feed-item fi-1">☀️</div>
-    <div class="feed-item fi-2">🌸</div>
-    <div class="feed-item fi-3">🌿</div>
-    <div class="feed-item fi-4">💛</div>
-    <div class="feed-item fi-5">✨</div>
-    <div class="feed-item fi-6">🧴</div>
+    <div class="feed-item fi-1"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/5step.jpeg" alt="best sunscreen"> </a></div>
+    <div class="feed-item fi-2"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/Korean.jpeg" alt="best sunscreen"></a></div>
+    <div class="feed-item fi-3"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/51lEn+3Xs2L._SL1000_.jpg" alt="best sunscreen"></a></div>
+    <div class="feed-item fi-4"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/ISDIN-Eryfotona-Actinica.png" alt="best sunscreen"></a></div>
+    <div class="feed-item fi-5"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/Supergoop-Unseen-Sunscreen-SPF-40.png" alt="best sunscreen"></a></div>
+    <div class="feed-item fi-6"><a href="https://www.pinterest.com/glowshield02" target="_blank" rel="noopener noreferrer"><img src="https://ik.imagekit.io/glowshield/Best%20sunscreen.jpeg" alt="best sunscreen"></a></div>
   </div>
 </section>
 
