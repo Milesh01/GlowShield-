@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPF Match Quiz</title>
+<meta name="description" content="8 best sunscreens for sensitive, rosacea & eczema-prone skin in 2026. Fragrance-free, mineral, dermatologist-tested. Full ingredient specs, no-sting guaranteed picks.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --cream:#FAF6F0; --warm:#FFFDF9; --off:#F2EDE6;
+  --tc:#C8674A; --tc-l:#E8937A; --tc-p:#F5E6DF;
+  --gold:#C9A96E; --gold-l:#E8D5B0;
+  --sage:#5A7A65; --sage-l:#8FAF9F; --sage-p:#EAF2EE;
+  --lavender:#8B7BAB; --lav-p:#F0ECF8;
+  --charcoal:#2A2A2A; --gray:#6B6B6B; --lgray:#E8E4DF;
+  --nav:68px;
+   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --radius-sm: .5rem; --radius-md: .9rem; --radius-lg: 1.25rem; --radius-xl: 1.75rem; --radius-full: 999px;
+      --font-display: 'Outfit', 'Inter', sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --color-bg: #f7f6f2;
+      --color-surface: #fffdf9;
+      --color-surface-2: #f2efe8;
+      --color-border: #d8d2c7;
+      --color-text: #201d19;
+      --color-text-muted: #666057;
+      --color-primary: #066a70;
+      --color-primary-hover: #0b5257;
+      --color-primary-soft: #d9eceb;
+      --color-success: #437a22;
+      --color-warning: #a55a16;
+      --color-blue: #2d73b9;
+      --shadow-sm: 0 10px 30px rgba(22, 24, 24, 0.08);
+      --shadow-lg: 0 20px 60px rgba(18, 20, 20, 0.14);
+      --transition: 180ms cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit} ul{list-style:none}
+
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;width:100%;height:var(--nav);z-index:600;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,60px);background:rgba(250,246,240,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,169,110,.18);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,24px);font-weight:600;color:var(--tc)}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:clamp(12px,2vw,32px);align-items:center}
+.nav-links a{color:var(--gray);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:400;transition:color .3s}
+.nav-links a:hover{color:var(--tc)}
+.nav-cta{background:var(--tc)!important;color:#fff!important;padding:8px 18px;border-radius:2px;font-size:10px!important;letter-spacing:1.6px!important;transition:background .3s!important}
+.nav-cta:hover{background:var(--charcoal)!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.ham span{width:22px;height:1.5px;background:var(--charcoal);display:block;border-radius:2px;transition:all .3s}
+.mob{position:fixed;inset:0;background:var(--charcoal);z-index:590;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.mob.open{opacity:1;pointer-events:all}
+.mob ul{text-align:center} .mob li{margin-bottom:24px}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,40px);font-weight:300;font-style:italic;color:#fff;transition:color .3s}
+.mob a:hover{color:var(--tc-l)}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,.4);font-size:26px;cursor:pointer;padding:8px}
+
+/* ── PROGRESS BAR ── */
+.pbar{position:fixed;top:var(--nav);left:0;height:2px;background:linear-gradient(90deg,var(--sage),var(--tc));width:0;z-index:599;transition:width .1s linear}
+
+/* ── HERO ── */
+.hero{min-height:min(100vh,400px);background:var(--charcoal);display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(16px,5vw,80px) clamp(48px,6vw,72px);padding-top:var(--nav);position:relative;overflow:hidden}
+.h-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.h-o1{width:min(520px,80vw);height:min(520px,80vw);background:radial-gradient(circle,rgba(90,122,101,.25),transparent 70%);top:-100px;right:-80px;animation:hf 9s ease-in-out infinite}
+.h-o2{width:min(300px,55vw);height:min(300px,55vw);background:radial-gradient(circle,rgba(201,169,110,.14),transparent 70%);bottom:-20px;left:60px;animation:hf 7s ease-in-out infinite reverse}
+.h-o3{width:min(200px,40vw);height:min(200px,40vw);background:radial-gradient(circle,rgba(200,103,74,.15),transparent 70%);top:40%;right:20%;animation:hf 5s ease-in-out infinite}
+@keyframes hf{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:64px 64px}
+.hero-inner{position:relative;z-index:2;max-width:800px}
+.hero-crumb{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.hero-crumb a{color:var(--gold);transition:color .3s}
+.hero-crumb a:hover{color:var(--tc-l)}
+.hero-crumb span{color:rgba(255,255,255,.15)}
+.hero-ey{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--sage-l);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.hero-ey::before{content:'';width:28px;height:1px;background:var(--sage-l)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6.5vw,80px);font-weight:300;color:#fff;line-height:1.04;margin-bottom:22px}
+.hero h1 em{font-style:italic;color:var(--tc-l)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px 24px}
+.h-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.4);font-weight:300}
+.h-chip::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--sage-l);flex-shrink:0}
+
+/* ── TICKER ── */
+.ticker{background:var(--sage);overflow:hidden;white-space:nowrap;padding:13px 0}
+.ticker-inner{display:inline-block;animation:tick 32s linear infinite;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.9);font-weight:400}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.t-s{margin:0 24px;color:rgba(255,255,255,.4)}
+
+/* ── SKIN CONDITIONS STRIP ── */
+.conditions{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(180px,50%),1fr));gap:1px;background:var(--lgray)}
+.cond-item{background:var(--warm);padding:clamp(18px,2.5vw,28px);text-align:center;transition:background .3s,transform .3s;cursor:default}
+.cond-item:hover{background:var(--sage-p);transform:translateY(-2px)}
+.cond-icon{font-size:clamp(24px,3.5vw,32px);margin-bottom:8px;display:block}
+.cond-name{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2vw,18px);font-weight:600;color:var(--charcoal);margin-bottom:4px}
+.cond-desc{font-size:11px;color:var(--gray);font-weight:300;line-height:1.5}
+
+/* SHOP ROW */
+.shop-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:clamp(12px,1.8vw,18px) clamp(14px,2vw,24px);background:var(--off);border-top:1px solid var(--lgray)}
+.s-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;border-radius:2px;transition:all .3s;white-space:nowrap}
+.s-amz{background:var(--charcoal);color:#fff} .s-amz:hover{background:var(--tc)}
+.s-alt{background:transparent;color:var(--charcoal);border:1px solid var(--lgray)} .s-alt:hover{border-color:var(--sage);color:var(--sage)}
+.s-note{font-size:10px;color:var(--gray);font-weight:300;margin-left:auto;letter-spacing:.3px}
+
+/* ── LAYOUT ── */
+img,svg{display:block;max-width:100%}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    :focus-visible{outline:3px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .page{max-width:1200px;margin:0 auto;padding:var(--space-4)}
+    .skip-link{position:absolute;left:-999px;top:0;background:var(--color-primary);color:white;padding:var(--space-2) var(--space-4);z-index:10}
+    .skip-link:focus{left:var(--space-4);top:var(--space-4)}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);padding:var(--space-4) 0}
+    .brand{display:flex;align-items:center;gap:var(--space-3);font-weight:800;font-family:var(--font-display);letter-spacing:-.03em}
+    .brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--color-primary),var(--color-blue));display:grid;place-items:center;color:#fff;box-shadow:var(--shadow-sm)}
+    
+    .panel,.quiz-card,.result-card,.fact-card{background:color-mix(in srgb, var(--color-surface) 92%, transparent);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm);backdrop-filter:blur(10px)}
+    .hero-copy{padding:var(--space-6)}
+    .eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);padding:.4rem .8rem;border-radius:var(--radius-full);background:var(--color-primary-soft);color:var(--color-primary);font-size:var(--text-sm);font-weight:700}
+    
+.lead{font-size:var(--text-lg);color:var(--color-text-muted);max-width:58ch}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-6)}
+    .stat strong{display:block;font-size:var(--text-lg);font-family:var(--font-display)}
+    .stat span{color:var(--color-text-muted);font-size:var(--text-sm)}
+    .hero-side{display:grid;gap:var(--space-4)}
+    .fact-card{padding:var(--space-5)}
+    .fact-card h2,.result-card h2,.quiz-card h2{font-family:var(--font-display);font-size:var(--text-xl);letter-spacing:-.03em;margin:0 0 var(--space-3)}
+    .fact-pill-wrap{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-4)}
+    .pill{padding:.55rem .85rem;border-radius:var(--radius-full);background:var(--color-surface-2);border:1px solid color-mix(in srgb, var(--color-text) 8%, transparent);font-size:var(--text-sm);font-weight:600}
+    .layout{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--space-6);align-items:start}
+    .quiz-card,.result-card{padding:var(--space-6);position:sticky;top:var(--space-4)}
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)}
+    .progress-bar{height:12px;background:var(--color-surface-2);border-radius:var(--radius-full);overflow:hidden;border:1px solid color-mix(in srgb, var(--color-text) 6%, transparent)}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--color-primary),var(--color-blue));transition:width .35s ease}
+    .question{margin-top:var(--space-5)}
+    .question h3{font-size:var(--text-lg);margin:0 0 var(--space-3);line-height:1.2}
+    .option-grid{display:grid;gap:var(--space-3)}
+    .option-btn{position:relative;text-align:left;padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);background:var(--color-surface);color:var(--color-text);transition:transform var(--transition),border-color var(--transition),background var(--transition),box-shadow var(--transition)}
+    .option-btn:hover,.option-btn:focus-visible{transform:translateY(-2px);border-color:var(--color-primary);box-shadow:var(--shadow-sm)}
+    .option-btn.active{background:color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));border-color:var(--color-primary)}
+    .option-btn small{display:block;color:var(--color-text-muted);margin-top:.25rem}
+    .nav-row{display:flex;justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6)}
+    .btn{min-height:48px;padding:.9rem 1.15rem;border-radius:var(--radius-full);border:1px solid transparent;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;transition:all var(--transition)}
+    .btn-primary{background:var(--color-primary);color:#fff}.btn-primary:hover{background:var(--color-primary-hover)}
+    .btn-secondary{background:var(--color-surface-2);border-color:color-mix(in srgb, var(--color-text) 10%, transparent);color:var(--color-text)}
+    .btn-secondary:hover{border-color:var(--color-primary);color:var(--color-primary)}
+    .btn-ghost{background:transparent;border-color:color-mix(in srgb, var(--color-text) 10%, transparent)}
+    .microcopy{color:var(--color-text-muted);font-size:var(--text-sm)}
+    .result-badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:.5rem .85rem;border-radius:var(--radius-full);background:var(--color-primary-soft);color:var(--color-primary);font-weight:700;font-size:var(--text-sm)}
+    .result-title{font-family:var(--font-display);font-size:clamp(2rem,1.2rem + 3vw,4rem);line-height:.98;letter-spacing:-.06em;margin:var(--space-4) 0}
+    .score-ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--color-primary) calc(var(--score)*1%), var(--color-surface-2) 0);padding:10px;margin:var(--space-4) 0}
+    .score-ring span{width:100%;height:100%;display:grid;place-items:center;border-radius:50%;background:var(--color-surface);font-family:var(--font-display);font-size:var(--text-lg);font-weight:800}
+    .reason-list,.care-list{display:grid;gap:var(--space-3);margin:var(--space-4) 0 0;padding:0;list-style:none}
+    .reason-list li,.care-list li{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2)}
+    .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3);margin-top:var(--space-5)}
+    .result-mini{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2)}
+    .fineprint{margin-top:var(--space-5);padding-top:var(--space-4);border-top:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);color:var(--color-text-muted);font-size:var(--text-sm)}
+    .footer-note{padding:var(--space-8) 0 var(--space-10);color:var(--color-text-muted);font-size:var(--text-sm)}
+    .hidden{display:none !important}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:16px 24px}
+    .h-meta-chip{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-muted);font-weight:300; margin-top: 1rem;}
+    .h-dot{width:4px;height:4px;border-radius:50%;background:var(--tc);flex-shrink:0}
+
+    @media (max-width: 980px){
+      .hero,.layout{grid-template-columns:1fr}
+      .quiz-card,.result-card{position:static}
+    }
+    @media (max-width: 640px){
+      .page{padding:var(--space-3)}
+      .hero-copy,.quiz-card,.result-card,.fact-card{padding:var(--space-4)}
+      .stats,.result-grid{grid-template-columns:1fr}
+      .topbar{padding-top:var(--space-3)}
+      .nav-row{flex-direction:column-reverse}
+      .btn{width:100%}
+    }
+/* ── FOOTER ── */
+footer{background:var(--charcoal);padding:clamp(40px,5vw,60px) clamp(16px,4vw,60px);color:rgba(255,255,255,.5)}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(20px,3vw,48px);margin-bottom:clamp(28px,4vw,44px)}
+@media(max-width:768px){.ft-top{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-top{grid-template-columns:1fr}}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,26px);font-weight:600;color:#fff;display:inline-block;margin-bottom:10px}
+.ft-logo span{color:var(--gold)}
+.ft-about{font-size:13px;line-height:1.8;font-weight:300;max-width:240px;margin-bottom:16px}
+.ft-socs{display:flex;gap:8px}
+.ft-soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.4);transition:all .3s}
+.ft-soc:hover{background:var(--tc);border-color:var(--tc);color:#fff}
+.ft-col h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.ft-col li{margin-bottom:10px}
+.ft-col a{color:rgba(255,255,255,.38);font-size:13px;font-weight:300;transition:color .3s}
+.ft-col a:hover{color:var(--tc-l)}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:11px;font-weight:300}
+.ft-disc{max-width:460px;line-height:1.6;color:rgba(255,255,255,.25)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:767px){.nav-links{display:none} .ham{display:flex}}
+@media(max-width:600px){.specs{grid-template-columns:1fr 1fr} .shop-row{flex-direction:column;align-items:flex-start} .s-note{margin-left:0;width:100%}}
+@media(max-width:479px){.hero h1{font-size:34px} .pc-wrap{grid-template-columns:1fr}}
+@media(min-width:1440px){.page-wrap{max-width:1320px}}
+</style>
+</head>
+<body>
+
+<div class="mob" id="mob">
+  <button class="mob-x" id="mobX">✕</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="spf-morning-routine.html">Routines</a></li>
+    <li><a href="oily-skin-sunscreen-guide-2026.html">Oily Skin</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<div class="pbar" id="pbar"></div>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="logo">Glow<span>Shield</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="spf-morning-routine.html">SPF Routine</a>
+    <a href="sensitive-skin-sunscreen-guide-2026.html">Sensitive Skin</a>
+    <a href="#guide"> Guide</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="ham" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+   <article class="" style="padding: clamp(40px, 5vw, 60px) clamp(16px, 4vw, 60px);">
+          <h1 id="title" style="color: #a55a16;">Choose the <span style="color: white;">best SPF</span> for your skin in under 60 seconds.</h1>
+          <p class="lead">This quiz does not guess randomly. It maps skin type, tone, sun time, lifestyle, sensitivity, and finish preference into a practical sunscreen recommendation with instant on-screen results.</p>
+          <div class="hero-meta" aria-label="quiz highlights">
+              <div class="h-meta-chip"><div class="h-dot"></div>smart questions</div>
+              <div class="h-meta-chip"><div class="h-dot"></div>result after last tap</div>
+              <div class="h-meta-chip"><div class="h-dot"></div>broad-spectrum logic</div>
+              <div class="h-meta-chip"><div class="h-dot"></div>5 Min Read</div>
+          </div>
+        </article>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    Sunscreen Sensitive Skin<span class="t-s">✦</span>Fragrance Free SPF<span class="t-s">✦</span>Mineral Sunscreen Rosacea<span class="t-s">✦</span>Best SPF Eczema Prone<span class="t-s">✦</span>Sunscreen No Sting<span class="t-s">✦</span>Zinc Oxide Sunscreen Face<span class="t-s">✦</span>Gentle SPF 50 Daily<span class="t-s">✦</span>Korean Sunscreen Sensitive Skin<span class="t-s">✦</span>
+    Sunscreen Sensitive Skin<span class="t-s">✦</span>Fragrance Free SPF<span class="t-s">✦</span>Mineral Sunscreen Rosacea<span class="t-s">✦</span>Best SPF Eczema Prone<span class="t-s">✦</span>Sunscreen No Sting<span class="t-s">✦</span>Zinc Oxide Sunscreen Face<span class="t-s">✦</span>Gentle SPF 50 Daily<span class="t-s">✦</span>Korean Sunscreen Sensitive Skin<span class="t-s">✦</span>
+  </div>
+</div>
+
+<main>
+      <section class="layout" id="quiz" style="padding: clamp(40px, 5vw, 60px) clamp(16px, 4vw, 60px);">
+        <section class="quiz-card" aria-labelledby="quiz-heading">
+          <div class="progress-row">
+            <div>
+              <div class="microcopy">Dynamic quiz</div>
+              <h2 id="quiz-heading">Tap, answer, get result</h2>
+              <p style="color: red;">First Back then choose</p>
+            </div>
+            <div class="microcopy"><span id="stepLabel">1</span>/6</div>
+          </div>
+          <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+          <div id="questionMount"></div>
+          <div class="nav-row">
+            <button class="btn btn-secondary" id="prevBtn" type="button">Back</button>
+            <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
+          </div>
+        </section>
+
+        <aside class="result-card" aria-live="polite" aria-labelledby="result-heading">
+          <div class="result-badge">Live SPF outcome</div>
+          <h2 id="result-heading">Your sunscreen fit updates in real time</h2>
+          <div class="score-ring" id="scoreRing" style="--score:34"><span id="scoreText">34%</span></div>
+          <div class="result-title" id="resultTitle">Start the quiz</div>
+          <p id="resultSummary">Answer the questions to unlock a specific SPF range, formula type, finish, and use-case guidance.</p>
+
+          <div class="result-grid">
+            <div class="result-mini"><strong id="spfValue">SPF --</strong><div class="microcopy">Recommended level</div></div>
+            <div class="result-mini"><strong id="formulaValue">Formula --</strong><div class="microcopy">Texture fit</div></div>
+            <div class="result-mini"><strong id="finishValue">Finish --</strong><div class="microcopy">Daily wear feel</div></div>
+            <div class="result-mini"><strong id="waterValue">Water --</strong><div class="microcopy">Activity need</div></div>
+          </div>
+
+          <ul class="reason-list" id="reasonList">
+            <li>Your custom sunscreen logic will appear here.</li>
+          </ul>
+
+          <ul class="care-list" id="careList">
+            <li>Apply generously to all exposed skin.</li>
+            <li>Reapply every 2 hours and after swimming or sweating.</li>
+          </ul>
+
+          <div class="fineprint" id="fineprint">
+            This educational quiz is not medical diagnosis. Patch-test new products and ask a board-certified dermatologist if you have eczema, melasma, rosacea, or persistent reactions.
+          </div>
+        </aside>
+      </section>
+    </main>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <a href="glowshield-home.html" class="ft-logo">Glow<span>Shield</span></a>
+      <p class="ft-about">Your trusted guide for SPF routines, sunscreen reviews, and summer skincare. Built for US audiences who want protected, glowing skin without the guesswork.</p>
+      <!-- <div class="ft-socs"><a href="#" class="ft-soc">📌</a><a href="#" class="ft-soc">📷</a><a href="#" class="ft-soc">🎵</a></div> -->
+    </div>
+    <div class="ft-col"><h4>Guides</h4><ul><li><a href="spf-morning-routine.html">SPF Morning Routine</a></li><li><a href="oily-skin-sunscreen-guide.html">Oily Skin Guide</a></li><li><a href="dry-skin-spf">Dry Skin SPF</a></li><li><a href="men-spf-routine.html">Men's Routine</a></li></ul></div>
+   <div class="ft-col">
+      <h4>Reviews</h4>
+      <ul>
+        <li><a href="#">Korean Sunscreens</a></li>
+        <li><a href="#">Drugstore Picks</a></li>
+        <li><a href="#">Mineral SPF</a></li>
+        <li><a href="#">Tinted Sunscreens</a></li>
+      </ul>
+    </div>
+    <div class="ft-col"> <h4>Legal</h4>
+      <ul>
+	   <li><a href="contact.html">Contact</a></li>
+	  <li><a href="about.html">About Us</a></li>
+	  <li><a href="privacy.html">Privacy Policy</a></li>
+	  <li><a href="affiliate.html">Affiliate Disclosure</a></li>
+	  </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© <script>document.write(new Date().getFullYear())</script> GlowShield. All rights reserved.</span>
+    <span class="ft-disc">Some links are affiliate links. We earn a small commission at no extra cost to you. All reviews are independent.</span>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement,t=s.scrollTop,h=s.scrollHeight-s.clientHeight;
+  document.getElementById('pbar').style.width=(t/h*100)+'%';
+  document.getElementById('nav').classList.toggle('scrolled',t>40);
+},{passive:true});
+
+// Mobile menu
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mob').classList.add('open'));
+document.getElementById('mobX').addEventListener('click',()=>document.getElementById('mob').classList.remove('open'));
+
+ // Quiz logic
+    const questions = [
+      {
+        key: 'skinType',
+        title: 'What best describes your skin type?',
+        options: [
+          { value: 'oily', label: 'Oily or acne-prone', note: 'Shiny fast, clogged pores, prefer lightweight feel' },
+          { value: 'dry', label: 'Dry or dehydrated', note: 'Tight, flaky, wants creamier comfort' },
+          { value: 'combo', label: 'Combination', note: 'Oily in T-zone, normal or dry elsewhere' },
+          { value: 'sensitive', label: 'Sensitive or reactive', note: 'Stings easily, redness or irritation risk' },
+          { value: 'normal', label: 'Mostly balanced', note: 'No major oil or dryness concerns' }
+        ]
+      },
+      {
+        key: 'tone',
+        title: 'How easily do you burn in the sun?',
+        options: [
+          { value: 'veryEasy', label: 'Very easily', note: 'Fair or sun-sensitive skin, burns quickly' },
+          { value: 'sometimes', label: 'Sometimes', note: 'May tan but can still burn' },
+          { value: 'rarely', label: 'Rarely', note: 'Darker skin tones, less burning but still needs UV protection' }
+        ]
+      },
+      {
+        key: 'sunTime',
+        title: 'How much direct sun do you get most days?',
+        options: [
+          { value: 'indoors', label: 'Mostly indoors', note: 'Commute, errands, desk-heavy day' },
+          { value: 'mixed', label: 'Mixed indoor and outdoor', note: 'Walks, driving, some midday exposure' },
+          { value: 'outdoor', label: 'A lot of outdoor time', note: 'Sports, travel, work outside, beach or hikes' }
+        ]
+      },
+      {
+        key: 'activity',
+        title: 'Will you sweat, swim, or stay active outdoors?',
+        options: [
+          { value: 'low', label: 'Low', note: 'Mostly casual everyday wear' },
+          { value: 'medium', label: 'Sometimes', note: 'Occasional workouts or humid days' },
+          { value: 'high', label: 'Yes, often', note: 'Frequent sweat, sports, swimming or long outdoor sessions' }
+        ]
+      },
+      {
+        key: 'finish',
+        title: 'What finish do you actually enjoy wearing daily?',
+        options: [
+          { value: 'matte', label: 'Matte or invisible', note: 'Best when it feels light and non-greasy' },
+          { value: 'natural', label: 'Natural skin-like', note: 'Balanced texture, no heavy shine' },
+          { value: 'dewy', label: 'Dewy and moisturizing', note: 'Comfort over oil control' }
+        ]
+      },
+      {
+        key: 'formulaPref',
+        title: 'Do you prefer mineral or chemical sunscreen filters?',
+        options: [
+          { value: 'mineral', label: 'Mineral preferred', note: 'Often easier for sensitive or redness-prone skin' },
+          { value: 'chemical', label: 'Chemical preferred', note: 'Often lighter, clearer finish, easier reapplication' },
+          { value: 'either', label: 'Either is fine', note: 'Choose based on comfort and use case' }
+        ]
+      }
+    ];
+
+    const answers = {};
+    let currentStep = 0;
+
+    const el = {
+      questionMount: document.getElementById('questionMount'),
+      progressFill: document.getElementById('progressFill'),
+      stepLabel: document.getElementById('stepLabel'),
+      prevBtn: document.getElementById('prevBtn'),
+      nextBtn: document.getElementById('nextBtn'),
+      resultTitle: document.getElementById('resultTitle'),
+      resultSummary: document.getElementById('resultSummary'),
+      spfValue: document.getElementById('spfValue'),
+      formulaValue: document.getElementById('formulaValue'),
+      finishValue: document.getElementById('finishValue'),
+      waterValue: document.getElementById('waterValue'),
+      reasonList: document.getElementById('reasonList'),
+      careList: document.getElementById('careList'),
+      scoreRing: document.getElementById('scoreRing'),
+      scoreText: document.getElementById('scoreText')
+    };
+
+    function renderQuestion() {
+      const q = questions[currentStep];
+      el.stepLabel.textContent = currentStep + 1;
+      el.progressFill.style.width = `${((currentStep + 1) / questions.length) * 100}%`;
+      el.prevBtn.disabled = currentStep === 0;
+      el.nextBtn.textContent = currentStep === questions.length - 1 ? 'See final result' : 'Next';
+
+      el.questionMount.innerHTML = `
+        <div class="question">
+          <h3>${q.title}</h3>
+          <div class="option-grid">
+            ${q.options.map(opt => `
+              <button class="option-btn ${answers[q.key] === opt.value ? 'active' : ''}" data-value="${opt.value}" type="button">
+                ${opt.label}
+                <small>${opt.note}</small>
+              </button>
+            `).join('')}
+          </div>
+          <p class="microcopy" style="margin-top:1rem;">Best quiz completion happens when users can answer in one tap per step. This screen follows that rule.</p>
+        </div>
+      `;
+
+      el.questionMount.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[q.key] = btn.dataset.value;
+          renderQuestion();
+          updateResults();
+        });
+      });
+    }
+
+    function calculateResult() {
+      let spf = 30;
+      let formula = 'Flexible';
+      let finish = 'Natural';
+      let water = 'Not essential';
+      const reasons = [];
+      const care = ['Apply generously 15 minutes before sun exposure.', 'Reapply at least every 2 hours.'];
+      let confidence = 34;
+
+      if (answers.tone === 'veryEasy') { spf = 50; confidence += 12; reasons.push('You burn easily, so higher daily protection makes more sense.'); }
+      if (answers.tone === 'sometimes') { spf = Math.max(spf, 40); confidence += 8; reasons.push('You can still burn, so a mid-to-high SPF range is smarter than the minimum.'); }
+      if (answers.tone === 'rarely') { confidence += 6; reasons.push('Even if you rarely burn, UVA exposure still matters for pigmentation and long-term damage.'); }
+
+      if (answers.sunTime === 'mixed') { spf = Math.max(spf, 40); confidence += 10; reasons.push('Mixed daily exposure usually needs more than a basic commute-only sunscreen.'); }
+      if (answers.sunTime === 'outdoor') { spf = Math.max(spf, 50); confidence += 14; water = 'Recommended'; reasons.push('Long outdoor exposure increases the case for SPF 50 and stronger wear time.'); care.push('Seek shade and protective clothing during peak UV hours.'); }
+
+      if (answers.activity === 'medium') { water = '40 minutes'; confidence += 8; reasons.push('Some sweat or humidity means water-resistant sunscreen is more reliable.'); }
+      if (answers.activity === 'high') { water = '80 minutes'; spf = Math.max(spf, 50); confidence += 12; reasons.push('Frequent sweating or swimming needs a higher-hold, water-resistant formula.'); care.push('Reapply after swimming, towel drying, or heavy sweat.'); }
+
+      if (answers.skinType === 'oily') { formula = answers.formulaPref === 'mineral' ? 'Mineral fluid/gel' : 'Gel, fluid, or lightweight lotion'; finish = 'Matte'; confidence += 10; reasons.push('Oily or acne-prone skin usually wears best with lightweight, non-greasy textures.'); }
+      if (answers.skinType === 'dry') { formula = answers.formulaPref === 'mineral' ? 'Creamy mineral lotion' : 'Hydrating lotion or cream'; finish = 'Dewy'; confidence += 10; reasons.push('Dry skin often needs more emollient sunscreen so protection feels comfortable enough to reapply.'); }
+      if (answers.skinType === 'combo') { formula = 'Light lotion or fluid'; finish = answers.finish === 'matte' ? 'Soft matte' : 'Natural'; confidence += 8; reasons.push('Combination skin usually works best with balanced textures that do not over-dry or over-shine.'); }
+      if (answers.skinType === 'sensitive') { formula = 'Mineral-forward lotion'; finish = 'Natural'; confidence += 11; reasons.push('Sensitive skin often does better with simpler, gentler formulas, especially mineral-leaning options.'); care.push('Patch-test on the jawline or neck before full-face use.'); }
+      if (answers.skinType === 'normal') { formula = 'Lotion, fluid, or stick'; finish = 'Natural'; confidence += 6; reasons.push('Balanced skin gives you more freedom to choose by lifestyle and finish.'); }
+
+      if (answers.formulaPref === 'mineral') { formula = formula.includes('Mineral') ? formula : `Mineral ${formula.toLowerCase()}`; confidence += 8; reasons.push('You prefer mineral filters, so the recommendation leans toward zinc oxide or titanium dioxide styles.'); }
+      if (answers.formulaPref === 'chemical') { formula = formula.includes('Mineral') ? 'Lightweight chemical lotion or fluid' : formula; confidence += 8; reasons.push('You prefer a clear, lighter-wearing feel, so chemical filters may fit better for daily consistency.'); }
+
+      if (answers.finish === 'matte') { finish = answers.skinType === 'dry' ? 'Soft matte' : 'Matte'; confidence += 6; reasons.push('A matte finish can improve daily compliance if you dislike shine.'); }
+      if (answers.finish === 'dewy') { finish = 'Dewy'; confidence += 6; reasons.push('A dewy finish usually pairs better with comfort-focused daily wear.'); }
+      if (answers.finish === 'natural') { finish = 'Natural'; confidence += 5; reasons.push('A natural finish is often the safest all-day option for most users.'); }
+
+      const profileKey = `${answers.skinType || 'base'}-${spf}-${formula.includes('Mineral') ? 'mineral' : 'flex'}`;
+      let title = 'Build your SPF match';
+      let summary = 'Complete the quiz to see your best SPF range and texture fit.';
+
+      if (Object.keys(answers).length >= 3) {
+        title = spf >= 50 ? 'High-protection daily pick' : spf >= 40 ? 'Balanced daily-plus protection' : 'Daily essential sunscreen';
+        summary = `Your current match points to SPF ${spf}, ${formula.toLowerCase()}, a ${finish.toLowerCase()} finish, and ${water.toLowerCase()} ${water === 'Not essential' ? 'based on activity' : 'water resistance'}.`;
+      }
+
+      if (Object.keys(answers).length === questions.length) {
+        title = spf >= 50 ? 'SPF 50 broad-spectrum is your best fit' : spf >= 40 ? 'SPF 40-50 is your sweet spot' : 'SPF 30 broad-spectrum suits your routine';
+        summary = `Based on your skin, sun exposure, activity level, and texture preference, the strongest fit is SPF ${spf} with ${formula.toLowerCase()} texture and a ${finish.toLowerCase()} finish.`;
+      }
+
+      confidence = Math.min(98, confidence);
+      return { spf, formula, finish, water, reasons: reasons.slice(0, 5), care: care.slice(0, 4), title, summary, confidence, profileKey };
+    }
+
+    function updateResults() {
+      const result = calculateResult();
+      el.resultTitle.textContent = result.title;
+      el.resultSummary.textContent = result.summary;
+      el.spfValue.textContent = `SPF ${result.spf}`;
+      el.formulaValue.textContent = result.formula;
+      el.finishValue.textContent = result.finish;
+      el.waterValue.textContent = result.water;
+      el.scoreRing.style.setProperty('--score', result.confidence);
+      el.scoreText.textContent = `${result.confidence}%`;
+      el.reasonList.innerHTML = result.reasons.length
+        ? result.reasons.map(item => `<li>${item}</li>`).join('')
+        : '<li>Your custom sunscreen logic will appear here.</li>';
+      el.careList.innerHTML = result.care.map(item => `<li>${item}</li>`).join('');
+    }
+
+    el.prevBtn.addEventListener('click', () => {
+      currentStep = Math.max(0, currentStep - 1);
+      renderQuestion();
+    });
+
+    el.nextBtn.addEventListener('click', () => {
+      const currentKey = questions[currentStep].key;
+      if (!answers[currentKey]) {
+        const firstOption = el.questionMount.querySelector('.option-btn');
+        if (firstOption) firstOption.focus();
+        return;
+      }
+      if (currentStep < questions.length - 1) {
+        currentStep += 1;
+        renderQuestion();
+      } else {
+        updateResults();
+        document.getElementById('result-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    (function initTheme(){
+      const btn = document.querySelector('[data-theme-toggle]');
+      const root = document.documentElement;
+      let mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', mode);
+      setThemeIcon(mode);
+      btn.addEventListener('click', () => {
+        mode = mode === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', mode);
+        setThemeIcon(mode);
+      });
+      function setThemeIcon(mode){
+        btn.setAttribute('aria-label', `Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`);
+        btn.innerHTML = mode === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.5 17.5l1.57 1.57M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.5 6.5l1.57-1.57"/></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+      }
+    })();
+
+    renderQuestion();
+    updateResults();
+  
+document.querySelectorAll('.quick-box,.p-card,.ing-grid,.avoid-grid,.conditions').forEach(el=>co.observe(el));
+</script>
+</body>
+</html>
