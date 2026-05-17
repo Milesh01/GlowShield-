@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skincare Shade Quiz</title>
+  <meta name="description" content="A mobile-friendly skincare shade quiz to help users identify tone, undertone, and product direction in under a minute." />
+  <meta property="og:title" content="Skincare Shade Quiz" />
+  <meta property="og:description" content="Find your likely skin tone and undertone with a fast skincare shade quiz." />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=boska@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --color-bg: #f7f1eb;
+      --color-surface: #fcf8f4;
+      --color-surface-2: #fffdfb;
+      --color-surface-offset: #efe4da;
+      --color-border: #dbcbbd;
+      --color-text: #2f241d;
+      --color-text-muted: #7c685d;
+      --color-text-faint: #b19f94;
+      --color-primary: #8b5e4a;
+      --color-primary-hover: #6f4938;
+      --color-primary-soft: #ead8cc;
+      --color-success: #476a49;
+      --radius-sm: 0.5rem; --radius-md: 0.875rem; --radius-lg: 1.25rem; --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px rgba(47,36,29,.06);
+      --shadow-md: 0 10px 30px rgba(47,36,29,.09);
+      --font-body: 'Satoshi', system-ui, sans-serif;
+      --font-display: 'Boska', Georgia, serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #191513;
+      --color-surface: #211c19;
+      --color-surface-2: #292320;
+      --color-surface-offset: #312925;
+      --color-border: #4d423c;
+      --color-text: #f0e7df;
+      --color-text-muted: #c8b5a8;
+      --color-text-faint: #907d72;
+      --color-primary: #d7a88b;
+      --color-primary-hover: #e8baa0;
+      --color-primary-soft: #3a2f29;
+      --color-success: #9cc39f;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.22);
+      --shadow-md: 0 12px 36px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at top left, rgba(215,168,139,.15), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(139,94,74,.10), transparent 25%),
+        var(--color-bg);
+      color: var(--color-text);
+    }
+    img, svg { display: block; max-width: 100%; }
+    button, input, select { font: inherit; }
+    a { color: inherit; }
+    .shell { width: min(100%, 1120px); margin: 0 auto; padding: var(--space-4); }
+    .skip-link {
+      position: absolute; left: -999px; top: var(--space-2);
+      background: var(--color-primary); color: white; padding: var(--space-3) var(--space-4); border-radius: var(--radius-full);
+    }
+    .skip-link:focus { left: var(--space-4); z-index: 100; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--color-bg) 84%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+      min-height: 72px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary-soft), var(--color-surface-2));
+      border: 1px solid color-mix(in srgb, var(--color-primary) 26%, transparent);
+      display: grid; place-items: center; box-shadow: var(--shadow-sm);
+    }
+    .brand-name { font-size: var(--text-sm); font-weight: 700; letter-spacing: .02em; }
+    .brand-sub { font-size: var(--text-xs); color: var(--color-text-muted); }
+    .theme-btn, .ghost-btn, .primary-btn, .option-btn {
+      min-height: 44px; border-radius: var(--radius-full); border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent);
+      transition: .18s ease; cursor: pointer;
+    }
+    .theme-btn, .ghost-btn { background: var(--color-surface); color: var(--color-text); }
+    .theme-btn { width: 44px; display: grid; place-items: center; }
+    .hero {
+      padding-block: clamp(var(--space-8), 9vw, var(--space-16));
+      display: grid; gap: var(--space-8);
+    }
+    .hero-grid { display: grid; gap: var(--space-6); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      width: fit-content; padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-full); background: var(--color-primary-soft); color: var(--color-primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    }
+    h1 {
+      font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.02; letter-spacing: -.02em; max-width: 10ch;
+      margin-top: var(--space-4);
+    }
+    .lead { max-width: 62ch; color: var(--color-text-muted); margin-top: var(--space-4); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+    .primary-btn {
+      background: var(--color-primary); color: #fff; border-color: transparent; padding: 0 var(--space-5); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .primary-btn:hover { background: var(--color-primary-hover); }
+    .ghost-btn { padding: 0 var(--space-5); text-decoration: none; display: inline-flex; align-items: center; }
+    .hero-card, .quiz-card, .result-card, .tips-card, .mini-card {
+      background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-lg);
+    }
+    .hero-card { padding: var(--space-6); display: grid; gap: var(--space-5); }
+    .tone-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); }
+    .tone-swatch { aspect-ratio: 1 / 1.08; border-radius: 999px 999px 35% 35%; border: 1px solid rgba(255,255,255,.45); }
+    .sw-1{background:#f6dfd0}.sw-2{background:#e6c1ab}.sw-3{background:#cc9c7b}.sw-4{background:#9d6c52}.sw-5{background:#6e4636}
+    .hero-note { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .layout { display: grid; gap: var(--space-6); }
+    .quiz-card, .result-card, .tips-card { padding: var(--space-6); }
+    .quiz-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+    .section-title { font-size: var(--text-xl); font-family: var(--font-display); line-height: 1.1; }
+    .section-copy { color: var(--color-text-muted); margin-top: var(--space-2); }
+    .progress { min-width: 96px; text-align: right; font-size: var(--text-sm); color: var(--color-text-muted); }
+    .question { margin-bottom: var(--space-5); }
+    .question h3 { font-size: var(--text-lg); margin-bottom: var(--space-4); line-height: 1.2; }
+    .options { display: grid; gap: var(--space-3); }
+    .option-btn {
+      background: var(--color-surface-2); padding: var(--space-4); text-align: left; color: var(--color-text);
+    }
+    .option-btn:hover { border-color: color-mix(in srgb, var(--color-primary) 38%, transparent); transform: translateY(-1px); }
+    .option-btn.active { background: var(--color-primary-soft); border-color: color-mix(in srgb, var(--color-primary) 52%, transparent); }
+    .quiz-actions { display: flex; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-6); }
+    .quiz-actions button { padding: 0 var(--space-5); }
+    .meta-grid { display: grid; gap: var(--space-4); margin-top: var(--space-5); }
+    .mini-card { padding: var(--space-4); box-shadow: var(--shadow-sm); }
+    .mini-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-muted); }
+    .mini-value { font-size: var(--text-lg); font-weight: 700; margin-top: var(--space-2); }
+    .result-tone {
+      display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-full); background: var(--color-primary-soft); color: var(--color-primary); font-weight: 700; margin: var(--space-4) 0;
+    }
+    .dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(255,255,255,.45); }
+    .bullet-list { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+    .bullet-list li {
+      list-style: none; padding-left: var(--space-5); position: relative; color: var(--color-text-muted);
+    }
+    .bullet-list li::before {
+      content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary);
+    }
+    .email-box {
+      margin-top: var(--space-6); padding: var(--space-5); border-radius: calc(var(--radius-lg) - var(--space-2));
+      background: var(--color-surface-offset);
+    }
+    .email-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+    .email-row input {
+      flex: 1 1 220px; min-height: 48px; padding: 0 var(--space-4); border-radius: var(--radius-full);
+      border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); background: var(--color-surface-2); color: var(--color-text);
+    }
+    .tips-grid { display: grid; gap: var(--space-4); }
+    .footer { padding-block: var(--space-8); color: var(--color-text-muted); font-size: var(--text-sm); }
+    .hidden { display: none !important; }
+    @media (min-width: 860px) {
+      .hero-grid { grid-template-columns: 1.15fr .85fr; align-items: center; }
+      .layout { grid-template-columns: 1.05fr .95fr; align-items: start; }
+      .meta-grid, .tips-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#home" aria-label="Shade Studio home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 3c3.4 0 6.5 2.7 6.5 6.2 0 5.5-6.5 11.8-6.5 11.8S5.5 14.7 5.5 9.2C5.5 5.7 8.6 3 12 3Z"></path>
+            <path d="M8.5 11.2c1.2.8 2.3 1.2 3.5 1.2 1.2 0 2.3-.4 3.5-1.2"></path>
+          </svg>
+        </span>
+        <span>
+          <span class="brand-name">Shade Studio</span>
+          <span class="brand-sub">Skincare tone quiz</span>
+        </span>
+      </a>
+      <button class="theme-btn" data-theme-toggle aria-label="Switch color theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="shell hero" id="home">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">60-second quiz</span>
+          <h1>Find your likely skin tone and undertone fast.</h1>
+          <p class="lead">This quiz is built for skincare, SPF, tinted products, and base-match direction. It does not replace an in-person shade match, but it gives a strong starting point for landing pages, lead capture, or affiliate recommendation flow. [web:69][web:71]</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#quiz">Start the quiz</a>
+            <a class="ghost-btn" href="#results">See sample result</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Tone scale preview">
+          <div>
+            <p class="mini-label">What it estimates</p>
+            <p class="hero-note">Depth, undertone, finish direction, and SPF/tint cues based on simple visual prompts. Personalized beauty quizzes work because they reduce decision fatigue and guide users toward the next product step. [web:67][web:69]</p>
+          </div>
+          <div class="tone-strip" aria-hidden="true">
+            <span class="tone-swatch sw-1"></span>
+            <span class="tone-swatch sw-2"></span>
+            <span class="tone-swatch sw-3"></span>
+            <span class="tone-swatch sw-4"></span>
+            <span class="tone-swatch sw-5"></span>
+          </div>
+          <p class="hero-note">Best used as a dedicated landing page because quiz pages are easier to promote as a single URL across Pinterest, email, and affiliate funnels. [web:70][web:73]</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shell layout">
+      <section class="quiz-card" id="quiz" aria-labelledby="quiz-title">
+        <div class="quiz-head">
+          <div>
+            <h2 class="section-title" id="quiz-title">Shade quiz</h2>
+            <p class="section-copy">Answer 5 quick questions. Your result updates instantly and can feed a sunscreen, tinted SPF, or complexion-product recommendation flow. [web:69][web:71]</p>
+          </div>
+          <div class="progress"><span id="progressText">1 / 5</span></div>
+        </div>
+
+        <form id="quizForm">
+          <div class="question" data-step="1">
+            <h3>1. In natural daylight, your skin depth looks closest to:</h3>
+            <div class="options">
+              <button type="button" class="option-btn" data-group="depth" data-value="fair">Very fair</button>
+              <button type="button" class="option-btn" data-group="depth" data-value="light">Light</button>
+              <button type="button" class="option-btn" data-group="depth" data-value="medium">Medium</button>
+              <button type="button" class="option-btn" data-group="depth" data-value="tan">Tan</button>
+              <button type="button" class="option-btn" data-group="depth" data-value="deep">Deep</button>
+            </div>
+          </div>
+
+          <div class="question hidden" data-step="2">
+            <h3>2. Your veins usually look:</h3>
+            <div class="options">
+              <button type="button" class="option-btn" data-group="undertone" data-value="cool">Blue or purple</button>
+              <button type="button" class="option-btn" data-group="undertone" data-value="warm">Green or olive</button>
+              <button type="button" class="option-btn" data-group="undertone" data-value="neutral">A mix of both</button>
+            </div>
+          </div>
+
+          <div class="question hidden" data-step="3">
+            <h3>3. Gold and silver jewelry on your skin usually feel:</h3>
+            <div class="options">
+              <button type="button" class="option-btn" data-group="jewelry" data-value="warm">Gold looks better</button>
+              <button type="button" class="option-btn" data-group="jewelry" data-value="cool">Silver looks better</button>
+              <button type="button" class="option-btn" data-group="jewelry" data-value="neutral">Both look fine</button>
+            </div>
+          </div>
+
+          <div class="question hidden" data-step="4">
+            <h3>4. For sunscreen or tinted skincare, you prefer:</h3>
+            <div class="options">
+              <button type="button" class="option-btn" data-group="finish" data-value="matte">Soft matte / oil-control</button>
+              <button type="button" class="option-btn" data-group="finish" data-value="natural">Natural skin finish</button>
+              <button type="button" class="option-btn" data-group="finish" data-value="dewy">Dewy / glow</button>
+            </div>
+          </div>
+
+          <div class="question hidden" data-step="5">
+            <h3>5. Your biggest match problem is:</h3>
+            <div class="options">
+              <button type="button" class="option-btn" data-group="concern" data-value="whitecast">White cast or ashiness</button>
+              <button type="button" class="option-btn" data-group="concern" data-value="oxidation">Turns darker later</button>
+              <button type="button" class="option-btn" data-group="concern" data-value="redness">Looks too pink or too yellow</button>
+            </div>
+          </div>
+
+          <div class="quiz-actions">
+            <button type="button" class="ghost-btn" id="prevBtn">Back</button>
+            <button type="button" class="primary-btn" id="nextBtn">Next</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="result-card" id="results" aria-live="polite">
+        <p class="mini-label">Live result</p>
+        <h2 class="section-title">Your likely match direction</h2>
+        <div class="result-tone"><span class="dot" id="toneDot" style="background:#cc9c7b"></span><span id="resultHeadline">Medium neutral, natural finish</span></div>
+        <p id="resultCopy">Start with flexible neutral-toned tinted SPF or skin tint shades. Neutral answers usually need balanced undertone options instead of strongly pink or golden bases. [web:71][web:74]</p>
+
+        <ul class="bullet-list" id="resultBullets">
+          <li>Look for neutral or olive-balanced shade names first.</li>
+          <li>Choose sheer or skin-tint textures if you struggle with exact matching.</li>
+          <li>For SPF, prioritize low white-cast formulas if deeper than light-medium.</li>
+        </ul>
+
+        <div class="meta-grid">
+          <div class="mini-card">
+            <p class="mini-label">Undertone</p>
+            <p class="mini-value" id="undertoneValue">Neutral</p>
+          </div>
+          <div class="mini-card">
+            <p class="mini-label">Finish cue</p>
+            <p class="mini-value" id="finishValue">Natural</p>
+          </div>
+          <div class="mini-card">
+            <p class="mini-label">SPF direction</p>
+            <p class="mini-value" id="spfValue">Tinted SPF</p>
+          </div>
+          <div class="mini-card">
+            <p class="mini-label">Coverage cue</p>
+            <p class="mini-value" id="coverageValue">Light buildable</p>
+          </div>
+        </div>
+
+        <div class="email-box">
+          <p class="mini-label">Lead capture block</p>
+          <p class="section-copy">Beauty and skincare quizzes often collect email before or right after results because personalized recommendations increase engagement and guide product clicks. [web:67][web:69]</p>
+          <div class="email-row">
+            <input type="email" placeholder="Email for your shade notes" aria-label="Email for shade notes" />
+            <button class="primary-btn" type="button">Get my routine</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="shell tips-card" aria-labelledby="tips-title">
+      <h2 class="section-title" id="tips-title">How to use this page</h2>
+      <div class="tips-grid" style="margin-top: var(--space-5);">
+        <div class="mini-card">
+          <p class="mini-label">Pinterest funnel</p>
+          <p>Use a pin like “Find Your Tinted SPF Shade” and send traffic here first, then show affiliate picks inside the result block. Dedicated quiz landing pages are easier to share and track. [web:70][web:73]</p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-label">Affiliate angle</p>
+          <p>Map outcomes to 2-3 product recommendations: matte mineral SPF, dewy Korean sunscreen, or tinted face SPF for undertone balance. Personalized result pages improve product relevance. [web:69][web:71]</p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-label">Mobile UX</p>
+          <p>Keep questions visual, short, and single-purpose. Quiz examples in beauty convert better when they reduce confusion and move users to one next action. [web:67][web:72]</p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-label">Important note</p>
+          <p>This is a guidance quiz, not a lab-grade shade matcher. Final purchase decisions should still be checked against brand swatches and daylight testing. [web:71][web:74]</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <p>Built as a single-file mobile landing page for skincare, tinted SPF, and shade-finder funnels. Beauty quiz landing pages are commonly used to personalize recommendations and capture leads. [web:69][web:73]</p>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('[data-theme-toggle]');
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+    const setIcon = () => {
+      toggle.innerHTML = theme === 'dark'
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+    };
+    setIcon();
+    toggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+      setIcon();
+    });
+
+    const state = { step: 1, answers: { depth: 'medium', undertone: 'neutral', jewelry: 'neutral', finish: 'natural', concern: 'redness' } };
+    const steps = [...document.querySelectorAll('.question')];
+    const optionButtons = [...document.querySelectorAll('.option-btn')];
+    const progressText = document.getElementById('progressText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const resultHeadline = document.getElementById('resultHeadline');
+    const resultCopy = document.getElementById('resultCopy');
+    const undertoneValue = document.getElementById('undertoneValue');
+    const finishValue = document.getElementById('finishValue');
+    const spfValue = document.getElementById('spfValue');
+    const coverageValue = document.getElementById('coverageValue');
+    const resultBullets = document.getElementById('resultBullets');
+    const toneDot = document.getElementById('toneDot');
+
+    const toneColors = { fair: '#f6dfd0', light: '#e6c1ab', medium: '#cc9c7b', tan: '#9d6c52', deep: '#6e4636' };
+
+    function paintSelections() {
+      optionButtons.forEach(btn => {
+        const active = state.answers[btn.dataset.group] === btn.dataset.value;
+        btn.classList.toggle('active', active);
+      });
+    }
+
+    function renderStep() {
+      steps.forEach(step => step.classList.toggle('hidden', Number(step.dataset.step) !== state.step));
+      progressText.textContent = `${state.step} / 5`;
+      prevBtn.style.visibility = state.step === 1 ? 'hidden' : 'visible';
+      nextBtn.textContent = state.step === 5 ? 'Finish' : 'Next';
+    }
+
+    function titleCase(v) { return v.charAt(0).toUpperCase() + v.slice(1); }
+
+    function computeResult() {
+      let undertone = state.answers.undertone;
+      if (state.answers.jewelry !== 'neutral' && state.answers.jewelry === state.answers.undertone) undertone = state.answers.undertone;
+      else if (state.answers.jewelry !== state.answers.undertone) undertone = 'neutral';
+
+      const finish = state.answers.finish;
+      const depth = state.answers.depth;
+      const concern = state.answers.concern;
+
+      const spfDirection = concern === 'whitecast'
+        ? 'Low-cast SPF'
+        : finish === 'matte'
+          ? 'Matte SPF gel'
+          : finish === 'dewy'
+            ? 'Glowy essence SPF'
+            : 'Tinted SPF';
+
+      const coverage = concern === 'oxidation'
+        ? 'Sheer flexible'
+        : concern === 'redness'
+          ? 'Light buildable'
+          : 'Skin-evening tint';
+
+      resultHeadline.textContent = `${titleCase(depth)} ${undertone}, ${finish} finish`;
+      undertoneValue.textContent = titleCase(undertone);
+      finishValue.textContent = titleCase(finish);
+      spfValue.textContent = spfDirection;
+      coverageValue.textContent = coverage;
+      toneDot.style.background = toneColors[depth];
+
+      const lines = [];
+      if (undertone === 'warm') lines.push('Start with golden, olive, or warm-beige shade families first.');
+      if (undertone === 'cool') lines.push('Look for rosy, cool-beige, or neutral-cool shade names first.');
+      if (undertone === 'neutral') lines.push('Prioritize neutral shade labels before strongly pink or yellow ones.');
+      if (finish === 'matte') lines.push('Gel-cream, oil-control, or soft-focus SPF textures should suit you better.');
+      if (finish === 'dewy') lines.push('Hydrating essence sunscreens and radiant skin tints are your best first test.');
+      if (concern === 'whitecast') lines.push('Avoid heavy mineral formulas without tint if your skin depth is medium to deep.');
+      if (concern === 'oxidation') lines.push('Patch-test after 20 minutes because formulas that oxidize can read warmer later.');
+      if (concern === 'redness') lines.push('Neutral-balanced or olive-balanced shades usually correct mismatch better than pink-heavy formulas.');
+
+      resultCopy.textContent = `Use ${titleCase(depth)} ${undertone} as your starting point, then narrow by finish and mismatch problem. This gives a practical first filter for sunscreen tints, skin tints, and flexible complexion shades.`;
+      resultBullets.innerHTML = lines.slice(0, 3).map(line => `<li>${line}</li>`).join('');
+    }
+
+    optionButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.answers[btn.dataset.group] = btn.dataset.value;
+        paintSelections();
+        computeResult();
+      });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (state.step < 5) state.step += 1;
+      renderStep();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (state.step > 1) state.step -= 1;
+      renderStep();
+    });
+
+    paintSelections();
+    computeResult();
+    renderStep();
+  </script>
+</body>
+</html>
